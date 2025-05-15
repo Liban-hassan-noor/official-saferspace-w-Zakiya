@@ -1,21 +1,30 @@
-// src/pages/Community.jsx
-import React from "react";
-import stories from "../data/stories";
-import StoryCard from "../components/StoryCard";
+// src/data/healthCenters.js
 
-const Community = () => {
-  return (
-    <div className="max-w-5xl mx-auto p-4">
-      <h1 className="text-3xl font-bold mb-6">Survivor Stories</h1>
-      <p className="mb-6 text-gray-600">Read real stories from brave girls who overcame difficult challenges. You are not alone.</p>
-      
-      <div className="grid gap-4">
-        {stories.map((story, index) => (
-          <StoryCard key={index} story={story} />
-        ))}
-      </div>
-    </div>
-  );
-};
+const healthCenters = [
+  {
+    id: 1,
+    name: "Garissa County Referral Hospital",
+    location: "Garissa",
+    contact: "+254 722 123456",
+    services: ["Maternity", "Emergency", "GBV Support"],
+    doctor: "Dr. Aisha Mohammed",
+  },
+  {
+    id: 2,
+    name: "Mandera County Hospital",
+    location: "Mandera",
+    contact: "+254 789 113030",
+    services: ["Maternal Health", "Counseling", "Cardiologist,HIV care"],
+    doctor: "Dr. Hassan Adan",
+  },
+  {
+    id: 3,
+    name: "Wajir Health Centre",
+    location: "Wajir",
+    contact: "+254 711 112233",
+    services: ["Rape support", "Vaccination", "Basic Treatment"],
+    doctor: "Dr. Fatuma Ali",
+  },
+];
 
-export default Community;
+export default healthCenters;

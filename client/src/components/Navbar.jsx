@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { Menu, X } from "lucide-react"; 
-import Logo from '../assets/logo-SaferSpace.jpg'; 
+import { Menu, X } from "lucide-react";
+import Logo from "../assets/logo-SaferSpace.jpg";
 const Navbar = () => {
   const [open, setOpen] = useState(false);
 

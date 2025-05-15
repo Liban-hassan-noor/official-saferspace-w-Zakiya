@@ -1,23 +1,13 @@
 import React, { useState } from "react";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
+import storiesData from "../data/stories";
+import StoryCard from "../components/StoryCard";
 
 dayjs.extend(relativeTime);
 
 const Community = () => {
-  const [stories, setStories] = useState([
-    {
-      id: 1,
-      text: "I felt scared but I found a nurse who helped me heal. You're not alone.",
-      messages: [
-        {
-          text: "Thank you for sharing ❤️",
-          timestamp: new Date().toISOString(),
-          reactions: { heart: 1, prayer: 0, star: 0 },
-        },
-      ],
-    },
-  ]);
+  const [stories, setStories] = useState(storiesData);
 
   const [newStory, setNewStory] = useState("");
   const [messageInputs, setMessageInputs] = useState({});
@@ -100,74 +90,14 @@ const Community = () => {
       </div>
 
       {/* Story List */}
-      {stories.map((story) => (
-        <div key={story.id} className="bg-white rounded-xl p-4 shadow-md mb-6">
-          <p className="text-gray-800 mb-3">{story.text}</p>
-
-          {/* Messages */}
-          {story.messages.length > 0 && (
-            <div className="mb-3 space-y-2 max-h-40 overflow-y-auto pr-2">
-              {story.messages.map((msg, idx) => (
-                <div
-                  key={idx}
-                  className="bg-green-50 p-3 rounded-md shadow-sm border border-green-100"
-                >
-                  <p className="text-sm text-green-900">{msg.text}</p>
-                  <div className="flex justify-between items-center mt-2 text-xs text-gray-500">
-                    <span>{dayjs(msg.timestamp).fromNow()}</span>
-                    <div className="flex space-x-2 text-lg">
-                      {["heart", "prayer", "star"].map((type) => {
-                        const icons = {
-                          heart: "❤️",
-                          prayer: "🙏",
-                          star: "🌟",
-                        };
-                        return (
-                          <button
-                            key={type}
-                            onClick={() => handleReact(story.id, idx, type)}
-                            className="hover:scale-110 transition-transform"
-                          >
-                            {icons[type]}{" "}
-                            <span className="text-sm ml-0.5">
-                              {msg.reactions?.[type] || 0}
-                            </span>
-                          </button>
-                        );
-                      })}
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
-
-          {/* Message Input */}
-          <div className="mt-2 flex items-center gap-2">
-            <textarea
-              placeholder="Send a supportive message..."
-              value={messageInputs[story.id] || ""}
-              onChange={(e) =>
-                setMessageInputs({
-                  ...messageInputs,
-                  [story.id]: e.target.value,
-                })
-              }
-              rows={1}
-              className="flex-1 resize-none border border-gray-300 rounded-lg p-2 text-sm focus:outline-none focus:ring-1 focus:ring-green-400"
-            />
-            <button
-              onClick={() => handleSendMessage(story.id)}
-              className="bg-green-500 text-white px-3 py-1 rounded-full hover:bg-green-600 text-sm transition-transform active:scale-95"
-            >
-              Send
-            </button>
-          </div>
-        </div>
-      ))}
+      <div className="grid gap-4">
+        {stories.map((story, index) => (
+          <StoryCard key={index} story={story} />
+        ))}
+      </div>
     </div>
   );
 };
 
 export default Community;
-// This code is a React component for a community page where users can share and read stories. It includes features like adding new stories, sending messages, and reacting to messages with emojis. The component uses local state to manage the stories and messages, and it formats timestamps using the dayjs library.
+// This code is a React component for a community page where users can share and read stories. It includes features like adding new stories, sending messages, and reacting to messages with emojis. The component uses local state to manage the stories and messages, and it formats timestamps using the dayjs library. The stories data is now imported from a separate file, and the StoryCard component is used to display each story.
