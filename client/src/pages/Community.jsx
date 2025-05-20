@@ -13,10 +13,14 @@ import {
 import { onAuthStateChanged } from "firebase/auth";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
+import storiesData from "../data/stories";
+import StoryCard from "../components/StoryCard";
+
 dayjs.extend(relativeTime);
 
 const Community = () => {
   const [stories, setStories] = useState([]);
+
   const [newStory, setNewStory] = useState("");
   const [messageInputs, setMessageInputs] = useState({});
   const [currentUser, setCurrentUser] = useState(null);
@@ -244,8 +248,16 @@ const Community = () => {
           </div>
         </div>
       ))}
+      {/* Story List */}
+      <div className="grid gap-4">
+        {stories.map((story, index) => (
+          <StoryCard key={index} story={story} />
+        ))}
+      </div>
     </div>
   );
 };
 
 export default Community;
+
+// This code is a React component for a community page where users can share and read stories. It includes features like adding new stories, sending messages, and reacting to messages with emojis. The component uses local state to manage the stories and messages, and it formats timestamps using the dayjs library. The stories data is now imported from a separate file, and the StoryCard component is used to display each story.

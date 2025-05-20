@@ -5,6 +5,9 @@ import Home from "./pages/Home";
 import Community from "./pages/Community";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import Support from "./pages/Support";
+import Healthservices from "./pages/Healthservices";
+
 
 // Step 1: Generate and store anonymous user ID in localStorage
 function getAnonymousUserId() {
@@ -16,6 +19,7 @@ function getAnonymousUserId() {
   return userId;
 }
 
+
 function App() {
   // Step 2: Call it once when the app starts
   useEffect(() => {
@@ -25,9 +29,13 @@ function App() {
   return (
     <Router>
       <Navbar />
+      {/* <Healthservices /> */}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/community" element={<Community />} />
+         <Route path="/support" element={<Support />} />
+          <Route path="/services" element={<Healthservices />} />
+
       </Routes>
       <Footer />
     </Router>
