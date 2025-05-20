@@ -1,144 +1,104 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React from "react";
+import "../App.css";
 
-export default function Healthservices() {
-  const [county, setCounty] = useState("Mandera");
-  const [hospitals, setHospitals] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+const hospitalsData = [
+  {
+    county: "Wajir",
+    hospitals: [
+      {
+        name: "Wajir County Referral Hospital",
+        address: "Wajir Town, Wajir County",
+        phone: "+254 722 123456",
+      },
+      {
+        name: "Alimaow Medical Centre",
+        address: "Alimaow Rd, Wajir",
+        phone: "+254 722 654321",
+      },
+    ],
+  },
+  {
+    county: "Mandera",
+    hospitals: [
+      {
+        name: "Mandera County Hospital",
+        address: "Mandera Town, Mandera County",
+        phone: "+254 722 789012",
+      },
+      {
+        name: "Red Cross Hospital Mandera",
+        address: "Near Airstrip, Mandera",
+        phone: "+254 733 456789",
+      },
+    ],
+  },
+  {
+    county: "Garissa",
+    hospitals: [
+      {
+        name: "Garissa County Referral Hospital",
+        address: "Kismayo Rd, Garissa",
+        phone: "+254 700 123123",
+      },
+      {
+        name: "Madina Hospital Garissa",
+        address: "Jamia Mosque St, Garissa",
+        phone: "+254 701 456456",
+      },
+    ],
+  },
+];
 
-  const counties = ["Mandera", "Garissa", "Wajir"];
-
-  useEffect(() => {
-    const fetchHospitals = async () => {
-      setLoading(true);
-      setError(null);
-      try {
-        // Try direct API first
-        let response;
-        try {
-          response = await axios.get(
-            `https://api.kmhfl.health.go.ke/api/facilities/facilities/?county=${county}&facility_type_name=Hospital`
-          );
-        } catch (directError) {
-          // If direct fails, try with CORS proxy
-          console.log("Trying with CORS proxy...");
-          response = await axios.get(
-            `https://cors-anywhere.herokuapp.com/https://api.kmhfl.health.go.ke/api/facilities/facilities/?county=${county}&facility_type_name=Hospital`
-          );
-        }
-
-        if (response.data && response.data.results) {
-          setHospitals(response.data.results);
-        } else {
-          setError("No data received");
-        }
-      } catch (err) {
-        console.error("Error fetching data:", err);
-        setError(`Failed to load data: ${err.message}`);
-        // Fallback mock data if API is completely down
-        setHospitals(getMockHospitals(county));
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchHospitals();
-  }, [county]);
-
-  // Mock data function for fallback
-  const getMockHospitals = (county) => {
-    const mockData = {
-      Mandera: [
-        {
-          code: "M001",
-          name: "Mandera County Referral Hospital",
-          county: { name: "Mandera" },
-          facility_type: { name: "Hospital" },
-          owner_type: { name: "Government" },
-          operational_status: { name: "Operational" },
-        },
-      ],
-      Garissa: [
-        {
-          code: "G001",
-          name: "Garissa County Hospital",
-          county: { name: "Garissa" },
-          facility_type: { name: "Hospital" },
-          owner_type: { name: "Government" },
-          operational_status: { name: "Operational" },
-        },
-      ],
-      Wajir: [
-        {
-          code: "W001",
-          name: "Wajir County Hospital",
-          county: { name: "Wajir" },
-          facility_type: { name: "Hospital" },
-          owner_type: { name: "Government" },
-          operational_status: { name: "Operational" },
-        },
-      ],
-    };
-    return mockData[county] || [];
-  };
-
+const Healthservices = () => {
   return (
-    <div className="max-w-6xl mx-auto p-6">
-      <h1 className="text-3xl font-bold text-green-700 text-center mb-4">
-        Hospitals in {county} County
-      </h1>
+    <div
+      className="min-h-screen bg-cover bg-center px-4 py-12 flex items-center justify-center"
+      style={{
+        backgroundImage:
+          "url('https://images.unsplash.com/photo-1604200875071-9f4f7974c7c1?auto=format&fit=crop&w=1650&q=80')",
+      }}
+    >
+      <div className="bg-white bg-opacity-95 shadow-xl rounded-xl max-w-7xl w-full p-8">
+        <h1 className="text-4xl font-bold text-green-700 mb-6 text-center">
+          Health Services in Northern Kenya
+        </h1>
+        <p className="text-center text-gray-700 text-lg mb-10 max-w-3xl mx-auto">
+          These health facilities offer essential services including physical
+          and mental health support, especially for women and girls affected by
+          early marriages, FGM, and gender-based violence.
+        </p>
 
-      <div className="flex justify-center gap-4 mb-6">
-        {counties.map((c) => (
-          <button
-            key={c}
-            onClick={() => setCounty(c)}
-            className={`px-4 py-2 rounded ${
-              county === c ? "bg-green-700 text-white" : "bg-gray-200"
-            }`}
-          >
-            {c}
-          </button>
-        ))}
-      </div>
-
-      {loading && <p className="text-center text-gray-500">Loading...</p>}
-      {error && (
-        <div className="text-center text-red-500 mb-4">
-          {error}
-          {hospitals.length > 0 && (
-            <p className="text-yellow-600">Showing cached/mock data</p>
-          )}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {hospitalsData.map((county, index) => (
+            <div
+              key={index}
+              className="bg-green-50 border border-green-200 rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow duration-300"
+            >
+              <h2 className="text-xl font-bold text-green-800 text-center mb-4 border-b border-green-300 pb-2">
+                {county.county} County
+              </h2>
+              <ul className="space-y-4">
+                {county.hospitals.map((hospital, idx) => (
+                  <li key={idx} className="text-gray-700">
+                    <p className="font-semibold text-lg">{hospital.name}</p>
+                    <p className="text-sm">{hospital.address}</p>
+                    <p className="text-sm text-green-600">{hospital.phone}</p>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
         </div>
-      )}
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {hospitals.length > 0
-          ? hospitals.map((hospital) => (
-              <div
-                key={hospital.code}
-                className="bg-white shadow p-4 rounded-lg"
-              >
-                <h2 className="text-lg font-semibold text-green-600">
-                  {hospital.name}
-                </h2>
-                <p className="text-gray-600">County: {hospital.county?.name}</p>
-                <p className="text-gray-600">
-                  Facility Type: {hospital.facility_type?.name}
-                </p>
-                <p className="text-gray-600">
-                  Owner: {hospital.owner_type?.name}
-                </p>
-                <p className="text-gray-600">
-                  Status: {hospital.operational_status?.name}
-                </p>
-              </div>
-            ))
-          : !loading && (
-              <p className="col-span-2 text-center">No hospitals found</p>
-            )}
+        <div className="mt-10 text-center">
+          <p className="text-sm italic text-gray-600">
+            We believe access to safe and supportive healthcare is a right, not
+            a privilege.
+          </p>
+        </div>
       </div>
     </div>
   );
-}
+};
+
+export default Healthservices;
