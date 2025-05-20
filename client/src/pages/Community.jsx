@@ -1,167 +1,246 @@
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
+import { db, auth } from "../firebase";
+import {
+  collection,
+  addDoc,
+  updateDoc,
+  doc,
+  onSnapshot,
+  query,
+  orderBy,
+  arrayUnion,
+} from "firebase/firestore";
+import { onAuthStateChanged } from "firebase/auth";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
-
 dayjs.extend(relativeTime);
 
 const Community = () => {
-  const [stories, setStories] = useState([
-    {
-      id: 1,
-      text: "I felt scared but I found a nurse who helped me heal. You're not alone.",
-      messages: [
-        {
-          text: "Thank you for sharing ❤️",
-          timestamp: new Date().toISOString(),
-          reactions: { heart: 1, prayer: 0, star: 0 },
-        },
-      ],
-    },
-  ]);
-
+  const [stories, setStories] = useState([]);
   const [newStory, setNewStory] = useState("");
   const [messageInputs, setMessageInputs] = useState({});
+  const [currentUser, setCurrentUser] = useState(null);
 
-  const handleStorySubmit = () => {
-    if (newStory.trim() === "") return;
+  useEffect(() => {
+    const unsubscribeAuth = onAuthStateChanged(auth, (user) => {
+      if (user) setCurrentUser(user);
+      else setCurrentUser(null);
+    });
 
-    const newEntry = {
-      id: Date.now(),
-      text: newStory,
-      messages: [],
+    const q = query(collection(db, "stories"), orderBy("createdAt", "desc"));
+    const unsubscribeStories = onSnapshot(q, (snapshot) => {
+      const storiesData = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setStories(storiesData);
+    });
+
+    return () => {
+      unsubscribeAuth();
+      unsubscribeStories();
     };
+  }, []);
 
-    setStories([newEntry, ...stories]);
-    setNewStory("");
+  const handleStorySubmit = async () => {
+    if (!newStory.trim()) return;
+    try {
+      await addDoc(collection(db, "stories"), {
+        text: newStory,
+        messages: [],
+        createdAt: new Date(),
+      });
+      setNewStory("");
+    } catch (error) {
+      console.error("Error posting story:", error);
+    }
   };
 
-  const handleSendMessage = (storyId) => {
+  const handleSendMessage = async (storyId) => {
     const msg = messageInputs[storyId]?.trim();
-    if (!msg) return;
+    if (!msg || !currentUser) return;
 
+    const storyRef = doc(db, "stories", storyId);
     const newMsg = {
       text: msg,
       timestamp: new Date().toISOString(),
-      reactions: { heart: 0, prayer: 0, star: 0 },
+      userId: currentUser.uid,
+      reactions: {
+        heart: 0,
+        thumbsUp: 0,
+        clapping: 0,
+        reactedBy: {}, // userId: 'reactionType'
+      },
     };
 
-    setStories((prev) =>
-      prev.map((story) =>
-        story.id === storyId
-          ? { ...story, messages: [...story.messages, newMsg] }
-          : story
-      )
-    );
-
-    setMessageInputs((prev) => ({ ...prev, [storyId]: "" }));
+    try {
+      await updateDoc(storyRef, {
+        messages: arrayUnion(newMsg),
+      });
+      setMessageInputs((prev) => ({ ...prev, [storyId]: "" }));
+    } catch (error) {
+      console.error("Error sending message:", error);
+    }
   };
 
-  const handleReact = (storyId, msgIdx, type) => {
-    setStories((prev) =>
-      prev.map((story) => {
-        if (story.id !== storyId) return story;
+  const handleReaction = async (storyId, msgIndex, reactionType) => {
+    if (!currentUser) return;
+    const userId = currentUser.uid;
+    const story = stories.find((s) => s.id === storyId);
+    const message = story?.messages[msgIndex];
+    if (!message || message.reactions?.reactedBy?.[userId]) return;
 
-        const updatedMessages = [...story.messages];
-        const target = updatedMessages[msgIdx];
+    const updatedReactions = {
+      ...message.reactions,
+      [reactionType]: message.reactions[reactionType] + 1,
+      reactedBy: {
+        ...message.reactions.reactedBy,
+        [userId]: reactionType,
+      },
+    };
 
-        const newReactions = {
-          ...target.reactions,
-          [type]: (target.reactions?.[type] || 0) + 1,
-        };
+    const updatedMessage = { ...message, reactions: updatedReactions };
+    const updatedMessages = [...story.messages];
+    updatedMessages[msgIndex] = updatedMessage;
 
-        updatedMessages[msgIdx] = { ...target, reactions: newReactions };
+    try {
+      await updateDoc(doc(db, "stories", storyId), {
+        messages: updatedMessages,
+      });
+    } catch (error) {
+      console.error("Error updating reaction:", error);
+    }
+  };
 
-        return { ...story, messages: updatedMessages };
-      })
-    );
+  const getTotalReactions = (messages) => {
+    return messages?.reduce((sum, msg) => {
+      return (
+        sum +
+        (msg.reactions?.heart || 0) +
+        (msg.reactions?.thumbsUp || 0) +
+        (msg.reactions?.clapping || 0)
+      );
+    }, 0);
+  };
+
+  const sortMessagesByReactions = (messages) => {
+    return [...messages].sort((a, b) => {
+      const aTotal =
+        (a.reactions?.heart || 0) +
+        (a.reactions?.thumbsUp || 0) +
+        (a.reactions?.clapping || 0);
+      const bTotal =
+        (b.reactions?.heart || 0) +
+        (b.reactions?.thumbsUp || 0) +
+        (b.reactions?.clapping || 0);
+      return bTotal - aTotal;
+    });
+  };
+
+  const formatRelativeTime = (timestamp) => {
+    return dayjs(timestamp).fromNow();
   };
 
   return (
-    <div className="min-h-screen bg-pink-50 p-6 max-w-4xl mx-auto">
-      <h1 className="text-3xl font-bold text-green-700 mb-6 text-center">
-        Survivor Stories 💬
-      </h1>
+    <div className="container mx-auto p-4">
+      <h1 className="text-xl font-bold mb-2">Community Stories</h1>
+      <p className="text-gray-600 mb-4">
+        Share your experience. Your voice might be the one that helps someone heal 💚
+      </p>
 
-      {/* New Story Input */}
-      <div className="bg-white shadow-md p-4 rounded-xl mb-8">
+      <div className="mb-4">
         <textarea
           value={newStory}
           onChange={(e) => setNewStory(e.target.value)}
-          placeholder="Write your anonymous story here..."
-          className="w-full border border-gray-300 rounded-lg p-3 text-sm focus:outline-none focus:ring-2 focus:ring-green-500"
-          rows={4}
+          placeholder="Share your story..."
+          className="w-full p-2 border rounded"
         />
         <button
           onClick={handleStorySubmit}
-          className="mt-3 bg-green-600 text-white px-4 py-2 rounded-full hover:bg-green-700 transition"
+          className="bg-blue-500 text-white px-4 py-2 rounded mt-2"
         >
-          Share Story
+          Post Story
         </button>
       </div>
 
-      {/* Story List */}
       {stories.map((story) => (
-        <div key={story.id} className="bg-white rounded-xl p-4 shadow-md mb-6">
-          <p className="text-gray-800 mb-3">{story.text}</p>
+        <div
+          key={story.id}
+          className="border border-gray-300 p-4 mb-6 rounded-xl shadow-sm"
+        >
+          <div>
+            <p className="text-gray-900">{story.text}</p>
+            <p className="text-sm text-gray-500 mt-1">
+              Total Reactions: {getTotalReactions(story.messages)}
+            </p>
+          </div>
 
-          {/* Messages */}
-          {story.messages.length > 0 && (
-            <div className="mb-3 space-y-2 max-h-40 overflow-y-auto pr-2">
-              {story.messages.map((msg, idx) => (
+          <div className="mt-4 space-y-3">
+            {sortMessagesByReactions(story.messages || []).map((msg, idx) => {
+              const isOwn = msg.userId === currentUser?.uid;
+              return (
                 <div
                   key={idx}
-                  className="bg-green-50 p-3 rounded-md shadow-sm border border-green-100"
+                  className={`rounded-2xl p-3 max-w-sm ${
+                    isOwn
+                      ? "bg-green-100 ml-auto text-right"
+                      : "bg-gray-100 text-left"
+                  } shadow`}
                 >
-                  <p className="text-sm text-green-900">{msg.text}</p>
-                  <div className="flex justify-between items-center mt-2 text-xs text-gray-500">
-                    <span>{dayjs(msg.timestamp).fromNow()}</span>
-                    <div className="flex space-x-2 text-lg">
-                      {["heart", "prayer", "star"].map((type) => {
-                        const icons = {
-                          heart: "❤️",
-                          prayer: "🙏",
-                          star: "🌟",
-                        };
-                        return (
-                          <button
-                            key={type}
-                            onClick={() => handleReact(story.id, idx, type)}
-                            className="hover:scale-110 transition-transform"
-                          >
-                            {icons[type]}{" "}
-                            <span className="text-sm ml-0.5">
-                              {msg.reactions?.[type] || 0}
-                            </span>
-                          </button>
-                        );
-                      })}
-                    </div>
+                  <p>{msg.text}</p>
+                  <div className="text-xs text-gray-500 mt-1">
+                    {formatRelativeTime(msg.timestamp)}
+                  </div>
+                  <div className="flex gap-2 mt-2 justify-end">
+                    <button
+                      onClick={() =>
+                        handleReaction(story.id, idx, "heart")
+                      }
+                      className="text-red-500"
+                    >
+                      ❤️ {msg.reactions.heart}
+                    </button>
+                    <button
+                      onClick={() =>
+                        handleReaction(story.id, idx, "thumbsUp")
+                      }
+                      className="text-blue-500"
+                    >
+                      👍 {msg.reactions.thumbsUp}
+                    </button>
+                    <button
+                      onClick={() =>
+                        handleReaction(story.id, idx, "clapping")
+                      }
+                      className="text-yellow-500"
+                    >
+                      👏 {msg.reactions.clapping}
+                    </button>
                   </div>
                 </div>
-              ))}
-            </div>
-          )}
+              );
+            })}
 
-          {/* Message Input */}
-          <div className="mt-2 flex items-center gap-2">
-            <textarea
-              placeholder="Send a supportive message..."
-              value={messageInputs[story.id] || ""}
-              onChange={(e) =>
-                setMessageInputs({
-                  ...messageInputs,
-                  [story.id]: e.target.value,
-                })
-              }
-              rows={1}
-              className="flex-1 resize-none border border-gray-300 rounded-lg p-2 text-sm focus:outline-none focus:ring-1 focus:ring-green-400"
-            />
-            <button
-              onClick={() => handleSendMessage(story.id)}
-              className="bg-green-500 text-white px-3 py-1 rounded-full hover:bg-green-600 text-sm transition-transform active:scale-95"
-            >
-              Send
-            </button>
+            <div className="flex gap-2 mt-4">
+              <input
+                type="text"
+                placeholder="Reply to this message..."
+                value={messageInputs[story.id] || ""}
+                onChange={(e) =>
+                  setMessageInputs((prev) => ({
+                    ...prev,
+                    [story.id]: e.target.value,
+                  }))
+                }
+                className="flex-1 p-2 border rounded"
+              />
+              <button
+                onClick={() => handleSendMessage(story.id)}
+                className="bg-green-500 text-white px-4 py-1 rounded"
+              >
+                Send
+              </button>
+            </div>
           </div>
         </div>
       ))}
@@ -170,4 +249,3 @@ const Community = () => {
 };
 
 export default Community;
-// This code is a React component for a community page where users can share and read stories. It includes features like adding new stories, sending messages, and reacting to messages with emojis. The component uses local state to manage the stories and messages, and it formats timestamps using the dayjs library.
