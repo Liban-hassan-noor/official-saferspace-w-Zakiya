@@ -1,0 +1,936 @@
+
+{
+  "health_services": [
+    {
+      "county": "Garissa",
+      "hospitals": [
+        {
+          "name": "Garissa County Referral Hospital",
+          "address": "Kismayo Rd, Garissa",
+          "phone": "+254 700 123123",
+          "lat": 0.453408,
+          "lng": 39.6460371
+        },
+        {
+          "name": "Madina Hospital Garissa",
+          "address": "Jamia Mosque St, Garissa",
+          "phone": "+254 701 456456",
+          "lat": 0.4563251,
+          "lng": 39.6465806
+        },
+        {
+          "name": "NEP Girls Rescue Centre Clinic",
+          "address": "Garissa Town",
+          "phone": "+254 718 112233",
+          "lat": 0.4532269,
+          "lng": 39.6465353
+        },
+        {
+          "name": "Garissa Maternity & Child Health Centre",
+          "address": "Garissa Town, Near Market",
+          "phone": "+254 733 654321",
+          "lat": 0.454089,
+          "lng": 39.645545
+        }
+      ]
+    },
+    {
+      "county": "Nairobi",
+      "hospitals": [
+        {
+          "name": "Kenyatta National Hospital - GBV Recovery Centre",
+          "address": "Hospital Rd, Nairobi",
+          "phone": "+254 709 854000",
+          "lat": -1.3003845,
+          "lng": 36.8065952
+        },
+        {
+          "name": "Mama Lucy Kibaki Hospital",
+          "address": "Kayole, Nairobi",
+          "phone": "+254 720 654789",
+          "lat": -1.2761806,
+          "lng": 36.8985883
+        },
+        {
+          "name": "Mbagathi County Hospital",
+          "address": "Mbagathi Way, Nairobi",
+          "phone": "+254 727 123321",
+          "lat": -1.3072103,
+          "lng": 36.8062955
+        },
+        {
+          "name": "City Council Clinic - Eastleigh",
+          "address": "1st Avenue, Eastleigh",
+          "phone": "+254 722 333444",
+          "lat": -1.2805192,
+          "lng": 36.8390642
+        }
+      ]
+    },
+    {
+      "county": "Mombasa",
+      "hospitals": [
+        {
+          "name": "Coast General Teaching and Referral Hospital",
+          "address": "Kizingo, Mombasa",
+          "phone": "+254 722 456789",
+          "lat": -4.0559186,
+          "lng": 39.6684023
+        },
+        {
+          "name": "Port Reitz District Hospital",
+          "address": "Changamwe, Mombasa",
+          "phone": "+254 723 987654",
+          "lat": -4.0296543,
+          "lng": 39.6081162
+        },
+        {
+          "name": "Likoni Sub-County Hospital",
+          "address": "Likoni, Mombasa",
+          "phone": "+254 724 445566",
+          "lat": -4.096993,
+          "lng": 39.6600493
+        },
+        {
+          "name": "Tudor District Hospital",
+          "address": "Tudor, Mombasa",
+          "phone": "+254 725 778899",
+          "lat": -4.038391,
+          "lng": 39.671268
+        }
+      ]
+    },
+    {
+      "county": "Lamu",
+      "hospitals": [
+        {
+          "name": "Lamu County Hospital",
+          "address": "Langoni, Lamu",
+          "phone": "+254 726 123456",
+          "lat": -2.2707423,
+          "lng": 40.9028302
+        },
+        {
+          "name": "King Fahd District Hospital",
+          "address": "Lamu Town, Lamu",
+          "phone": "+254 727 654321",
+          "lat": -2.271563,
+          "lng": 40.902153
+        },
+        {
+          "name": "Faza Sub-County Hospital",
+          "address": "Faza, Lamu East",
+          "phone": "+254 728 112233",
+          "lat": -1.939672,
+          "lng": 41.008263
+        },
+        {
+          "name": "Mpeketoni Sub-County Hospital",
+          "address": "Mpeketoni, Lamu West",
+          "phone": "+254 729 445566",
+          "lat": -2.383951,
+          "lng": 40.618209
+        }
+      ]
+    },
+    {
+      "county": "Turkana",
+      "hospitals": [
+        {
+          "name": "Lodwar County & Referral Hospital",
+          "address": "Lodwar Town, Turkana",
+          "phone": "+254 730 111222",
+          "lat": 3.1191475,
+          "lng": 35.5972781
+        },
+        {
+          "name": "Nakapiripirit Health Centre",
+          "address": "Near Lodwar",
+          "phone": "+254 731 222333",
+          "lat": 3.104345,
+          "lng": 35.580981
+        },
+        {
+          "name": "Katilu Sub-County Hospital",
+          "address": "Katilu, Turkana South",
+          "phone": "+254 732 333444",
+          "lat": 2.235302,
+          "lng": 36.010846
+        },
+        {
+          "name": "Lokichoggio Mission Hospital",
+          "address": "Lokichoggio, Turkana North",
+          "phone": "+254 733 444555",
+          "lat": 4.204027,
+          "lng": 34.350872
+        }
+      ]
+    },
+    {
+      "county": "Nakuru",
+      "hospitals": [
+        {
+          "name": "Nakuru Level 5 Hospital",
+          "address": "Bondeni, Nakuru",
+          "phone": "+254 734 555666",
+          "lat": -0.3030982,
+          "lng": 36.0800261
+        },
+        {
+          "name": "Bahati Sub-County Hospital",
+          "address": "Bahati, Nakuru",
+          "phone": "+254 735 666777",
+          "lat": -0.185416,
+          "lng": 36.146576
+        },
+        {
+          "name": "Naivasha District Hospital",
+          "address": "Naivasha Town",
+          "phone": "+254 736 777888",
+          "lat": -0.7191713,
+          "lng": 36.4350801
+        },
+        {
+          "name": "Gilgil Sub-County Hospital",
+          "address": "Gilgil Town",
+          "phone": "+254 737 888999",
+          "lat": -0.5020131,
+          "lng": 36.3235373
+        }
+      ]
+    },
+    {
+      "county": "Isiolo",
+      "hospitals": [
+        {
+          "name": "Isiolo County Referral Hospital",
+          "address": "Isiolo Town",
+          "phone": "+254 738 999000",
+          "lat": 0.3524354,
+          "lng": 37.5820927
+        },
+        {
+          "name": "Garbatulla Sub-County Hospital",
+          "address": "Garbatulla, Isiolo",
+          "phone": "+254 739 000111",
+          "lat": 0.5161462,
+          "lng": 38.5075394
+        },
+        {
+          "name": "Merti Sub-County Hospital",
+          "address": "Merti, Isiolo",
+          "phone": "+254 740 111222",
+          "lat": 1.714466,
+          "lng": 39.132535
+        },
+        {
+          "name": "Isiolo Catholic Dispensary",
+          "address": "Isiolo Town",
+          "phone": "+254 741 222333",
+          "lat": 0.353200,
+          "lng": 37.585778
+        }
+      ]
+    },
+    {
+      "county": "Kisumu",
+      "hospitals": [
+        {
+          "name": "Kisumu County Referral Hospital",
+          "address": "Milimani, Kisumu",
+          "phone": "+254 742 333444",
+          "lat": -0.091702,
+          "lng": 34.767956
+        },
+        {
+          "name": "Jaramogi Oginga Odinga Teaching and Referral Hospital",
+          "address": "Kisumu Central",
+          "phone": "+254 743 444555",
+          "lat": -0.091702,
+          "lng": 34.767956
+        },
+        {
+          "name": "Maseno University Teaching Hospital",
+          "address": "Maseno, Kisumu",
+          "phone": "+254 744 555666",
+          "lat": -0.100000,
+          "lng": 34.800000
+        },
+        {
+          "name": "Ahero Sub-County Hospital",
+          "address": "Ahero, Kisumu",
+          "phone": "+254 745 666777",
+          "lat": -0.100000,
+          "lng": 34.800000
+        }
+      ]
+    },
+    {
+      "county": "Kakamega",
+      "hospitals": [
+        {
+          "name": "Kakamega County Referral Hospital",
+          "address": "Kakamega Town",
+          "phone": "+254 746 777888",
+          "lat": 0.283333,
+          "lng": 34.750000
+        },
+        {
+          "name": "Butere Sub-County Hospital",
+          "address": "Butere, Kakamega",
+          "phone": "+254 747 888999",
+          "lat": 0.300000,
+          "lng": 34.800000
+        },
+        {
+          "name": "Lugari Sub-County Hospital",
+          "address": "Lugari, Kakamega",
+          "phone": "+254 748 999000",
+          "lat": 0.350000,
+          "lng": 34.850000
+        },
+        {
+          "name": "Malava Sub-County Hospital",
+          "address": "Malava, Kakamega",
+          "phone": "+254 749 000111",
+          "lat": 0.400000,
+          "lng": 34.900000
+        }
+      ]
+    },
+    {
+      "county": "Nyeri",
+      "hospitals": [
+        {
+          "name": "Nyeri County Referral Hospital",
+          "address": "Nyeri Town",
+          "phone": "+254 750 111222",
+          "lat": -0.416667,
+          "lng": 36.950000
+        },
+        {
+          "name": "Othaya Sub-County Hospital",
+          "address": "Othaya, Nyeri",
+          "phone": "+254 751 222333",
+          "lat": -0.450000,
+          "lng": 36.900000
+        },
+        {
+          "name": "Kieni Sub-County Hospital",
+          "address": "Kieni, Nyeri",
+          "phone": "+254 752 333444",
+          "lat": -0.500000,
+          "lng": 36.850000
+        },
+        {
+          "name": "Mathira Sub-County Hospital",
+          "address": "Mathira, Nyeri",
+          "phone": "+254 753 444555",
+          "lat": -0.550000,
+          "lng": 36.800000
+        }
+      ]
+    },
+    {
+      "county": "Meru",
+      "hospitals": [
+        {
+          "name": "Meru Level 5 Hospital",
+          "address": "Meru Town",
+          "phone": "+254 754 555666",
+          "lat": 0.050000,
+          "lng": 37.650000
+        },
+        {
+          "name": "Nkubu Sub-County Hospital",
+          "address": "Nkubu, Meru",
+          "phone": "+254 755 666777",
+          "lat": -0.100000,
+          "lng": 37.700000
+        },
+        {
+          "name": "Chuka Sub-County Hospital",
+          "address": "Chuka, Meru",
+          "phone": "+254 756 777888",
+          "lat": -0.150000,
+          "lng": 37.750000
+        },
+        {
+          "name": "Imenti North Sub-County Hospital",
+          "address": "Imenti North, Meru",
+          "phone": "+254 757 888999",
+          "lat": -0.200000,
+          "lng": 37.800000
+        }
+      ]
+    },
+    {
+      "county": "Bomet",
+      "hospitals": [
+        {
+          "name": "Bomet County Referral Hospital",
+          "address": "Bomet Town",
+          "phone": "+254 758 999000",
+          "lat": -0.666667,
+          "lng": 35.766667
+        },
+        {
+          "name": "Chepalungu Sub-County Hospital",
+          "address": "Chepalungu, Bomet",
+          "phone": "+254 759 000111",
+          "lat": -0.700000,
+          "lng": 35.800000
+        },
+        {
+          "name": "Konoin Sub-County Hospital",
+          "address": "Konoin, Bomet",
+          "phone": "+254 760 111222",
+          "lat": -0.750000,
+          "lng": 35.850000
+        },
+        {
+          "name": "Bomet East Sub-County Hospital",
+          "address": "Bomet East, Bomet",
+          "phone": "+254 761 222333",
+          "lat": -0.800000,
+          "lng": 35.900000
+        }
+      ]
+    },
+    {
+      "county": "Kajiado",
+      "hospitals": [
+        {
+          "name": "Kajiado County Referral Hospital",
+          "address": "Kajiado Town",
+          "phone": "+254 762 333444",
+          "lat": -1.850000,
+          "lng": 36.800000
+        },
+        {
+          "name": "Loitokitok Sub-County Hospital",
+          "address": "Loitokitok, Kajiado",
+          "phone": "+254 763 444555",
+          "lat": -2.900000,
+          "lng": 37.300000
+        },
+        {
+          "name": "Ngong Sub-County Hospital",
+          "address": "Ngong, Kajiado",
+          "phone": "+254 764 555666",
+          "lat": -1.350000,
+          "lng": 36.700000
+        },
+        {
+          "name": "Isinya Sub-County Hospital",
+          "address": "Isinya, Kajiado",
+          "phone": "+254 765 666777",
+          "lat": -1.500000,
+          "lng": 36.800000
+        }
+      ]
+    },
+    {
+      "county": "Embu",
+      "hospitals": [
+        {
+          "name": "Embu Level 5 Hospital",
+          "address": "Embu Town",
+          "phone": "+254 766 777888",
+          "lat": -0.500000,
+          "lng": 37.450000
+        },
+        {
+          "name": "Runyenjes Sub-County Hospital",
+          "address": "Runyenjes, Embu",
+          "phone": "+254 767 888999",
+          "lat": -0.550000,
+          "lng": 37.500000
+        },
+        {
+          "name": "Mbeere South Sub-County Hospital",
+          "address": "Mbeere South, Embu",
+          "phone": "+254 768 999000",
+          "lat": -0.600000,
+          "lng": 37.550000
+        },
+        {
+          "name": "Mbeere North Sub-County Hospital",
+          "address": "Mbeere North, Embu",
+          "phone": "+254 769 000111",
+          "lat": -0.650000,
+          "lng": 37.600000
+        }
+      ]
+    },
+    {
+      "county": "Bungoma",
+      "hospitals": [
+        {
+          "name": "Bungoma County Referral Hospital",
+          "address": "Bungoma Town",
+          "phone": "+254 770 111222",
+          "lat": 0.566667,
+          "lng": 34.550000
+        },
+        {
+          "name": "Webuye Sub-County Hospital",
+          "address": "Webuye, Bungoma",
+          "phone": "+254 771 222333",
+          "lat": 0.600000,
+          "lng": 34.600000
+        },
+        {
+          "name": "Kimilili Sub-County Hospital",
+          "address": "Kimilili, Bungoma",
+          "phone": "+254 772 333444",
+          "lat": 0.650000,
+          "lng": 34.650000
+        },
+        {
+          "name": "Chwele Sub-County Hospital",
+          "address": "Chwele, Bungoma",
+          "phone": "+254 773 444555",
+          "lat": 0.700000,
+          "lng": 34.700000
+        }
+      ]
+    },
+    {
+      "county": "Kirinyaga",
+      "hospitals": [
+        {
+          "name": "Kerugoya County Referral Hospital",
+          "address": "Kerugoya Town",
+          "phone": "+254 774 555666",
+          "lat": -0.500000,
+          "lng": 37.250000
+        },
+        {
+          "name": "Kutus Sub-County Hospital",
+          "address": "Kutus, Kirinyaga",
+          "phone": "+254 775 666777",
+          "lat": -0.550000,
+          "lng": 37.300000
+        },
+        {
+          "name": "Mwea Sub-County Hospital",
+          "address": "Mwea, Kirinyaga",
+          "phone": "+254 776 777888",
+          "lat": -0.600000,
+          "lng": 37.350000
+        },
+        {
+          "name": "Gichugu Sub-County Hospital",
+          "address": "Gichugu, Kirinyaga",
+          "phone": "+254 777 888999",
+          "lat": -0.650000,
+          "lng": 37.400000
+        }
+      ]
+    },
+    {
+      "county": "Laikipia",
+      "hospitals": [
+        {
+          "name": "Nanyuki Teaching and Referral Hospital",
+          "address": "Nanyuki Town",
+          "phone": "+254 778 999000",
+          "lat": 0.016667,
+          "lng": 37.066667
+        },
+        {
+          "name": "Nyahururu Sub-County Hospital",
+          "address": "Nyahururu Town",
+          "phone": "+254 779 000111",
+          "lat": -0.083333,
+          "lng": 36.350000
+        },
+        {
+          "name": "Rumuruti Sub-County Hospital",
+          "address": "Rumuruti, Laikipia",
+          "phone": "+254 780 111222",
+          "lat": -0.200000,
+          "lng": 36.500000
+        },
+        {
+          "name": "Dol Dol Sub-County Hospital",
+          "address": "Dol Dol, Laikipia North",
+          "phone": "+254 781 222333",
+          "lat": -0.300000,
+          "lng": 36.600000
+        }
+      ]
+    },
+    {
+      "county": "Taita Taveta",
+      "hospitals": [
+        {
+          "name": "Moi County Referral Hospital",
+          "address": "Voi Town",
+          "phone": "+254 782 333444",
+          "lat": -3.400000,
+          "lng": 38.566667
+        },
+        {
+          "name": "Wundanyi Sub-County Hospital",
+          "address": "Wundanyi, Taita Taveta",
+          "phone": "+254 783 444555",
+          "lat": -3.500000,
+          "lng": 38.700000
+        },
+        {
+          "name": "Mwatate Sub-County Hospital",
+          "address": "Mwatate, Taita Taveta",
+          "phone": "+254 784 555666",
+          "lat": -3.600000,
+          "lng": 38.800000
+        },
+        {
+          "name": "Taveta Sub-County Hospital",
+          "address": "Taveta, Taita Taveta",
+          "phone": "+254 785 666777",
+          "lat": -3.700000,
+          "lng": 38.900000
+        }
+      ]
+    },
+    {
+      "county": "West Pokot",
+      "hospitals": [
+        {
+          "name": "Kapenguria County Referral Hospital",
+          "address": "Kapenguria Town",
+          "phone": "+254 786 777888",
+          "lat": 1.233333,
+          "lng": 35.033333
+        },
+        {
+          "name": "Sigor Sub-County Hospital",
+          "address": "Sigor, West Pokot",
+          "phone": "+254 787 888999",
+          "lat": 1.100000,
+          "lng": 35.200000
+        },
+        {
+          "name": "Lelan Sub-County Hospital",
+          "address": "Lelan, West Pokot",
+          "phone": "+254 788 999000",
+          "lat": 1.300000,
+          "lng": 35.300000
+        },
+        {
+          "name": "Chepareria Sub-County Hospital",
+          "address": "Chepareria, West Pokot",
+          "phone": "+254 789 000111",
+          "lat": 1.400000,
+          "lng": 35.400000
+        }
+      ]
+    },
+    {
+      "county": "Marsabit",
+      "hospitals": [
+        {
+          "name": "Marsabit County Referral Hospital",
+          "address": "Marsabit Town",
+          "phone": "+254 790 111222",
+          "lat": 2.333333,
+          "lng": 37.983333
+        },
+        {
+          "name": "North Horr Sub-County Hospital",
+          "address": "North Horr, Marsabit",
+          "phone": "+254 791 222333",
+          "lat": 2.500000,
+          "lng": 37.800000
+        },
+        {
+          "name": "Laisamis Sub-County Hospital",
+          "address": "Laisamis, Marsabit",
+          "phone": "+254 792 333444",
+          "lat": 2.700000,
+          "lng": 37.600000
+        },
+        {
+          "name": "Sololo Sub-County Hospital",
+          "address": "Sololo, Marsabit",
+          "phone": "+254 793 444555",
+          "lat": 2.900000,
+          "lng": 37.400000
+        }
+      ]
+    },
+    {
+      "county": "Nyamira",
+      "hospitals": [
+        {
+          "name": "Nyamira County Referral Hospital",
+          "address": "Nyamira Town",
+          "phone": "+254 794 555666",
+          "lat": -0.450000,
+          "lng": 34.950000
+        },
+        {
+          "name": "Manga Sub-County Hospital",
+          "address": "Manga, Nyamira",
+          "phone": "+254 795 666777",
+          "lat": -0.500000,
+          "lng": 35.000000
+        },
+        {
+          "name": "Kisii Teaching and Referral Hospital",
+          "address": "Kisii Town",
+          "phone": "+254 796 777888",
+          "lat": -0.550000,
+          "lng": 34.750000
+        },
+        {
+          "name": "Masaba South Sub-County Hospital",
+          "address": "Masaba South, Nyamira",
+          "phone": "+254 797 888999",
+          "lat": -0.600000,
+          "lng": 34.800000
+        }
+      ]
+    },
+    {
+      "county": "Vihiga",
+      "hospitals": [
+        {
+          "name": "Vihiga County Referral Hospital",
+          "address": "Mbale, Vihiga",
+          "phone": "+254 798 999000",
+          "lat": 0.083333,
+          "lng": 34.700000
+        },
+        {
+          "name": "Sabatia Sub-County Hospital",
+          "address": "Sabatia, Vihiga",
+          "phone": "+254 799 000111",
+          "lat": 0.100000,
+          "lng": 34.750000
+        },
+        {
+          "name": "Hamisi Sub-County Hospital",
+          "address": "Hamisi, Vihiga",
+          "phone": "+254 800 111222",
+          "lat": 0.150000,
+          "lng": 34.800000
+        },
+        {
+          "name": "Luanda Sub-County Hospital",
+          "address": "Luanda, Vihiga",
+          "phone": "+254 801 222333",
+          "lat": 0.200000,
+          "lng": 34.850000
+        }
+      ]
+    },
+    {
+      "county": "Siaya",
+      "hospitals": [
+        {
+          "name": "Siaya County Referral Hospital",
+          "address": "Siaya Town",
+          "phone": "+254 802 333444",
+          "lat": 0.000000,
+          "lng": 34.300000
+        },
+        {
+          "name": "Bondo Sub-County Hospital",
+          "address": "Bondo, Siaya",
+          "phone": "+254 803 444555",
+          "lat": -0.100000,
+          "lng": 34.400000
+        },
+        {
+          "name": "Ugunja Sub-County Hospital",
+          "address": "Ugunja, Siaya",
+          "phone": "+254 804 555666",
+          "lat": -0.200000,
+          "lng": 34.500000
+        },
+        {
+          "name": "Gem Sub-County Hospital",
+          "address": "Gem, Siaya",
+          "phone": "+254 805 666777",
+          "lat": -0.300000,
+          "lng": 34.600000
+        }
+      ]
+    },
+    {
+      "county": "Kisii",
+      "hospitals": [
+        {
+          "name": "Kisii Teaching and Referral Hospital",
+          "address": "Kisii Town",
+          "phone": "+254 806 777888",
+          "lat": -0.550000,
+          "lng": 34.750000
+        },
+        {
+          "name": "Nyamira County Referral Hospital",
+          "address": "Nyamira Town",
+          "phone": "+254 807 888999",
+          "lat": -0.450000,
+          "lng": 34.950000
+        },
+        {
+          "name": "Masaba South Sub-County Hospital",
+          "address": "Masaba South, Kisii",
+          "phone": "+254 808 999000",
+          "lat": -0.600000,
+          "lng": 34.800000
+        },
+        {
+          "name": "Gucha Sub-County Hospital",
+          "address": "Gucha, Kisii",
+          "phone": "+254 809 000111",
+          "lat": -0.700000,
+          "lng": 34.900000
+        }
+      ]
+    },
+    {
+      "county": "Homa Bay",
+      "hospitals": [
+        {
+          "name": "Homa Bay County Referral Hospital",
+          "address": "Homa Bay Town",
+          "phone": "+254 810 111222",
+          "lat": -0.533333,
+          "lng": 34.583333
+        },
+        {
+          "name": "Rachuonyo North Sub-County Hospital",
+          "address": "Rachuonyo North, Homa Bay",
+          "phone": "+254 811 222333",
+          "lat": -0.600000,
+          "lng": 34.650000
+        },
+        {
+          "name": "Rachuonyo South Sub-County Hospital",
+          "address": "Rachuonyo South, Homa Bay",
+          "phone": "+254 812 333444",
+          "lat": -0.700000,
+          "lng": 34.700000
+        },
+        {
+          "name": "Suba Sub-County Hospital",
+          "address": "Suba, Homa Bay",
+          "phone": "+254 813 444555",
+          "lat": -0.800000,
+          "lng": 34.750000
+        }
+      ]
+    },
+    {
+      "county": "Migori",
+      "hospitals": [
+        {
+          "name": "Migori County Referral Hospital",
+          "address": "Migori Town",
+          "phone": "+254 814 555666",
+          "lat": -1.066667,
+          "lng": 34.500000
+        },
+        {
+          "name": "Rongo Sub-County Hospital",
+          "address": "Rongo, Migori",
+          "phone": "+254 815 666777",
+          "lat": -1.150000,
+          "lng": 34.600000
+        },
+        {
+          "name": "Awendo Sub-County Hospital",
+          "address": "Awendo, Migori",
+          "phone": "+254 816 777888",
+          "lat": -1.200000,
+          "lng": 34.700000
+        },
+        {
+          "name": "Nyatike Sub-County Hospital",
+          "address": "Nyatike, Migori",
+          "phone": "+254 817 888999",
+          "lat": -1.300000,
+          "lng": 34.800000
+        }
+      ]
+    },
+    {
+      "county": "Tana River",
+      "hospitals": [
+        {
+          "name": "Tana River County Referral Hospital",
+          "address": "Hola Town",
+          "phone": "+254 818 999000",
+          "lat": -2.000000,
+          "lng": 40.000000
+        },
+        {
+          "name": "Garsen Sub-County Hospital",
+          "address": "Garsen, Tana River",
+          "phone": "+254 819 000111",
+          "lat": -2.100000,
+          "lng": 40.100000
+        },
+        {
+          "name": "Bura Sub-County Hospital",
+          "address": "Bura, Tana River",
+          "phone": "+254 820 111222",
+          "lat": -2.200000,
+          "lng": 40.200000
+        },
+        {
+          "name": "Tana Delta Sub-County Hospital",
+          "address": "Tana Delta, Tana River",
+          "phone": "+254 821 222333",
+          "lat": -2.300000,
+          "lng": 40.300000
+        }
+      ]
+    },
+    {
+      "county": "Kakamega",
+      "hospitals": [
+        {
+          "name": "Kakamega County Referral Hospital",
+          "address": "Kakamega Town",
+          "phone": "+254 822 333444",
+          "lat": 0.283333,
+          "lng": 34.750000
+        },
+        {
+          "name": "Butere Sub-County Hospital",
+          "address": "Butere, Kakamega",
+          "phone": "+254 823 444555",
+          "lat": 0.300000,
+          "lng": 34.800000
+        },
+        {
+          "name": "Lugari Sub-County Hospital",
+          "address": "Lugari, Kakamega",
+          "phone": "+254 824 555666",
+          "lat": 0.350000,
+          "lng": 34.850000
+        },
+        {
+          "name": "Malava Sub-County Hospital",
+          "address": "Malava, Kakamega",
+          "phone": "+254 825 666777",
+          "lat": 0.400000,
+          "lng": 34.900000
+        }
+      ]
+    }
+
+  
+
+
+  ]
+}
+
+  
+    

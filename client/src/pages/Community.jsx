@@ -1,263 +1,363 @@
-import { useEffect, useState } from "react";
-import { db, auth } from "../firebase";
+import React, { useEffect, useState, useRef } from "react";
 import {
   collection,
   addDoc,
-  updateDoc,
-  doc,
   onSnapshot,
   query,
   orderBy,
+  serverTimestamp,
+  updateDoc,
+  doc,
   arrayUnion,
+  arrayRemove,
 } from "firebase/firestore";
+import { db, auth } from "../firebase";
 import { onAuthStateChanged } from "firebase/auth";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
-import storiesData from "../data/stories";
-import StoryCard from "../components/StoryCard";
-
 dayjs.extend(relativeTime);
+import LiveTimestamp from "../components/LiveTimestamp";
+
+const emojiMap = {
+  heart: "❤️",
+  thumbsUp: "👍",
+  clapping: "👏",
+};
 
 const Community = () => {
-  const [stories, setStories] = useState([]);
-
-  const [newStory, setNewStory] = useState("");
-  const [messageInputs, setMessageInputs] = useState({});
+  const [msg, setMsg] = useState("");
+  const [messages, setMessages] = useState([]);
   const [currentUser, setCurrentUser] = useState(null);
+  const [replyingTo, setReplyingTo] = useState(null);
+  const [replyText, setReplyText] = useState("");
+  const [editingReplyId, setEditingReplyId] = useState(null);
+  const endOfMessagesRef = useRef(null);
 
   useEffect(() => {
     const unsubscribeAuth = onAuthStateChanged(auth, (user) => {
-      if (user) setCurrentUser(user);
-      else setCurrentUser(null);
+      setCurrentUser(user);
     });
 
-    const q = query(collection(db, "stories"), orderBy("createdAt", "desc"));
-    const unsubscribeStories = onSnapshot(q, (snapshot) => {
-      const storiesData = snapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-      setStories(storiesData);
+    const q = query(collection(db, "messages"), orderBy("timestamp"));
+    const unsubscribeMessages = onSnapshot(q, (snapshot) => {
+      setMessages(snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
     });
 
     return () => {
       unsubscribeAuth();
-      unsubscribeStories();
+      unsubscribeMessages();
     };
   }, []);
 
-  const handleStorySubmit = async () => {
-    if (!newStory.trim()) return;
-    try {
-      await addDoc(collection(db, "stories"), {
-        text: newStory,
-        messages: [],
-        createdAt: new Date(),
-      });
-      setNewStory("");
-    } catch (error) {
-      console.error("Error posting story:", error);
-    }
-  };
+  useEffect(() => {
+    endOfMessagesRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
 
-  const handleSendMessage = async (storyId) => {
-    const msg = messageInputs[storyId]?.trim();
-    if (!msg || !currentUser) return;
+  const handleSendMessage = async () => {
+    if (!msg.trim() || !currentUser) return;
 
-    const storyRef = doc(db, "stories", storyId);
     const newMsg = {
-      text: msg,
-      timestamp: new Date().toISOString(),
+      text: msg.trim(),
+      timestamp: serverTimestamp(),
       userId: currentUser.uid,
+      userName: currentUser.displayName || "Anonymous",
+      userPhoto: currentUser.photoURL || null,
       reactions: {
         heart: 0,
         thumbsUp: 0,
         clapping: 0,
-        reactedBy: {}, // userId: 'reactionType'
       },
+      reactedBy: {},
+      replies: [],
     };
 
     try {
-      await updateDoc(storyRef, {
-        messages: arrayUnion(newMsg),
-      });
-      setMessageInputs((prev) => ({ ...prev, [storyId]: "" }));
-    } catch (error) {
-      console.error("Error sending message:", error);
+      await addDoc(collection(db, "messages"), newMsg);
+      setMsg(""); // Clear input after send
+    } catch (err) {
+      console.error("Error sending message:", err);
     }
   };
 
-  const handleReaction = async (storyId, msgIndex, reactionType) => {
+  const handleReaction = async (messageId, msg, emoji) => {
     if (!currentUser) return;
+
     const userId = currentUser.uid;
-    const story = stories.find((s) => s.id === storyId);
-    const message = story?.messages[msgIndex];
-    if (!message || message.reactions?.reactedBy?.[userId]) return;
+    const prevEmoji = msg.reactedBy?.[userId];
+    if (prevEmoji === emoji) return; // Already reacted with same emoji
 
-    const updatedReactions = {
-      ...message.reactions,
-      [reactionType]: message.reactions[reactionType] + 1,
-      reactedBy: {
-        ...message.reactions.reactedBy,
-        [userId]: reactionType,
-      },
-    };
+    const updatedReactions = { ...msg.reactions };
+    const updatedReactedBy = { ...msg.reactedBy };
 
-    const updatedMessage = { ...message, reactions: updatedReactions };
-    const updatedMessages = [...story.messages];
-    updatedMessages[msgIndex] = updatedMessage;
+    if (prevEmoji) updatedReactions[prevEmoji]--;
+    updatedReactions[emoji] = (updatedReactions[emoji] || 0) + 1;
+    updatedReactedBy[userId] = emoji;
 
     try {
-      await updateDoc(doc(db, "stories", storyId), {
-        messages: updatedMessages,
+      await updateDoc(doc(db, "messages", messageId), {
+        reactions: updatedReactions,
+        reactedBy: updatedReactedBy,
       });
-    } catch (error) {
-      console.error("Error updating reaction:", error);
+    } catch (err) {
+      console.error("Error updating reaction:", err);
     }
   };
 
-  const getTotalReactions = (messages) => {
-    return messages?.reduce((sum, msg) => {
-      return (
-        sum +
-        (msg.reactions?.heart || 0) +
-        (msg.reactions?.thumbsUp || 0) +
-        (msg.reactions?.clapping || 0)
-      );
-    }, 0);
+  const handleReply = async (messageId) => {
+    if (!replyText.trim() || !currentUser) return;
+
+    const reply = {
+      id: crypto.randomUUID(),
+      text: replyText.trim(),
+      userId: currentUser.uid,
+      userName: currentUser.displayName || "Anonymous",
+      timestamp: new Date(),
+    };
+
+    try {
+      await updateDoc(doc(db, "messages", messageId), {
+        replies: arrayUnion(reply),
+      });
+      setReplyingTo(null);
+      setReplyText("");
+    } catch (err) {
+      console.error("Error sending reply:", err);
+    }
   };
 
-  const sortMessagesByReactions = (messages) => {
-    return [...messages].sort((a, b) => {
-      const aTotal =
-        (a.reactions?.heart || 0) +
-        (a.reactions?.thumbsUp || 0) +
-        (a.reactions?.clapping || 0);
-      const bTotal =
-        (b.reactions?.heart || 0) +
-        (b.reactions?.thumbsUp || 0) +
-        (b.reactions?.clapping || 0);
-      return bTotal - aTotal;
-    });
+  const handleDeleteReply = async (msgId, reply) => {
+    const msgDoc = doc(db, "messages", msgId);
+    try {
+      await updateDoc(msgDoc, {
+        replies: arrayRemove(reply),
+      });
+    } catch (err) {
+      console.error("Error deleting reply:", err);
+    }
   };
 
-  const formatRelativeTime = (timestamp) => {
-    return dayjs(timestamp).fromNow();
+  const handleEditReply = async (msgId, originalReply, updatedText) => {
+    if (!updatedText.trim()) return;
+
+    const msgDoc = doc(db, "messages", msgId);
+    const updatedReply = {
+      ...originalReply,
+      text: updatedText,
+      timestamp: new Date(),
+    };
+
+    try {
+      await updateDoc(msgDoc, {
+        replies: arrayRemove(originalReply),
+      });
+      await updateDoc(msgDoc, {
+        replies: arrayUnion(updatedReply),
+      });
+      setEditingReplyId(null);
+    } catch (err) {
+      console.error("Error editing reply:", err);
+    }
   };
 
   return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-xl font-bold mb-2">Community Stories</h1>
-      <p className="text-gray-600 mb-4">
-        Share your experience. Your voice might be the one that helps someone heal 💚
-      </p>
-
-      <div className="mb-4">
-        <textarea
-          value={newStory}
-          onChange={(e) => setNewStory(e.target.value)}
-          placeholder="Share your story..."
-          className="w-full p-2 border rounded"
-        />
-        <button
-          onClick={handleStorySubmit}
-          className="bg-blue-500 text-white px-4 py-2 rounded mt-2"
-        >
-          Post Story
-        </button>
+    <div className="max-w-2xl mx-auto p-4 text-gray-900 dark:text-white">
+      <div className="bg-gradient-to-br from-pink-50 to-green-50 dark:from-green-950 dark:to-pink-900 p-6 rounded-2xl shadow-lg border border-pink-200 dark:border-green-400 mb-6">
+        <h2 className="text-2xl font-extrabold text-green-900 dark:text-pink-200 mb-3 flex items-center gap-2">
+          Your Voice Matters
+        </h2>
+        <p className="text-green-800 dark:text-pink-100 text-base leading-relaxed">
+          This space was created with you in mind — a calm, welcoming place
+          where you can speak freely, share your truth, and feel supported by
+          others who care.
+        </p>
+        <p className="mt-3 text-green-800 dark:text-pink-100 text-base leading-relaxed">
+          Whether it's something you're proud of, something you've survived, or
+          something you're still going through — your story belongs here. You
+          never know who it might help, heal, or give hope to.
+        </p>
+        <p className="mt-3 text-green-800 dark:text-pink-100 text-base leading-relaxed italic">
+          Every voice builds our community. Every share is a step toward
+          healing.
+        </p>
       </div>
 
-      {stories.map((story) => (
-        <div
-          key={story.id}
-          className="border border-gray-300 p-4 mb-6 rounded-xl shadow-sm"
-        >
-          <div>
-            <p className="text-gray-900">{story.text}</p>
-            <p className="text-sm text-gray-500 mt-1">
-              Total Reactions: {getTotalReactions(story.messages)}
-            </p>
-          </div>
+      <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-4 h-[60vh] overflow-y-auto space-y-4">
+        {messages.map((msg) => {
+          const isCurrentUser = currentUser?.uid === msg.userId;
+          const timestamp = msg.timestamp?.toDate?.()
+            ? dayjs(msg.timestamp.toDate()).fromNow()
+            : "Sending...";
 
-          <div className="mt-4 space-y-3">
-            {sortMessagesByReactions(story.messages || []).map((msg, idx) => {
-              const isOwn = msg.userId === currentUser?.uid;
-              return (
-                <div
-                  key={idx}
-                  className={`rounded-2xl p-3 max-w-sm ${
-                    isOwn
-                      ? "bg-green-100 ml-auto text-right"
-                      : "bg-gray-100 text-left"
-                  } shadow`}
-                >
-                  <p>{msg.text}</p>
-                  <div className="text-xs text-gray-500 mt-1">
-                    {formatRelativeTime(msg.timestamp)}
-                  </div>
-                  <div className="flex gap-2 mt-2 justify-end">
-                    <button
-                      onClick={() =>
-                        handleReaction(story.id, idx, "heart")
-                      }
-                      className="text-red-500"
-                    >
-                      ❤️ {msg.reactions.heart}
-                    </button>
-                    <button
-                      onClick={() =>
-                        handleReaction(story.id, idx, "thumbsUp")
-                      }
-                      className="text-blue-500"
-                    >
-                      👍 {msg.reactions.thumbsUp}
-                    </button>
-                    <button
-                      onClick={() =>
-                        handleReaction(story.id, idx, "clapping")
-                      }
-                      className="text-yellow-500"
-                    >
-                      👏 {msg.reactions.clapping}
-                    </button>
-                  </div>
-                </div>
-              );
-            })}
+          return (
+            <div
+              key={msg.id}
+              className={`flex flex-col max-w-[80%] ${
+                isCurrentUser ? "ml-auto text-right" : "mr-auto text-left"
+              }`}
+            >
+              <div className="flex items-center space-x-2">
+                {!isCurrentUser && msg.userPhoto && (
+                  <img
+                    src={msg.userPhoto}
+                    alt="Avatar"
+                    className="w-6 h-6 rounded-full"
+                  />
+                )}
+                <span className="text-sm font-semibold">
+                  {msg.userName || "Anonymous"}
+                </span>
+              </div>
 
-            <div className="flex gap-2 mt-4">
-              <input
-                type="text"
-                placeholder="Reply to this message..."
-                value={messageInputs[story.id] || ""}
-                onChange={(e) =>
-                  setMessageInputs((prev) => ({
-                    ...prev,
-                    [story.id]: e.target.value,
-                  }))
-                }
-                className="flex-1 p-2 border rounded"
-              />
-              <button
-                onClick={() => handleSendMessage(story.id)}
-                className="bg-green-500 text-white px-4 py-1 rounded"
+              <div
+                className={`p-3 rounded-lg shadow mt-1 ${
+                  isCurrentUser
+                    ? "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-100"
+                    : "bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-white"
+                }`}
               >
-                Send
-              </button>
+                <p className="mb-1">{msg.text}</p>
+                <p className="text-xs text-gray-500 dark:text-gray-300">
+                  {timestamp}
+                </p>
+
+                <div className="flex gap-3 mt-2 text-sm">
+                  {Object.keys(emojiMap).map((key) => (
+                    <button
+                      key={key}
+                      onClick={() => handleReaction(msg.id, msg, key)}
+                      className={`hover:scale-105 transition-transform ${
+                        msg.reactedBy?.[currentUser?.uid] === key
+                          ? "font-bold text-pink-600"
+                          : ""
+                      }`}
+                    >
+                      {emojiMap[key]}{" "}
+                      {msg.reactions?.[key] > 0 ? msg.reactions[key] : ""}
+                    </button>
+                  ))}
+                  <button
+                    onClick={() =>
+                      setReplyingTo(replyingTo === msg.id ? null : msg.id)
+                    }
+                    className="text-blue-600 dark:text-blue-300"
+                  >
+                    Reply
+                  </button>
+                </div>
+
+                {msg.replies?.length > 0 && (
+                  <div className="mt-2 space-y-1 text-sm text-left">
+                    {msg.replies.map((rep) => {
+                      const isOwner = rep.userId === currentUser?.uid;
+                      return (
+                        <div
+                          key={rep.id}
+                          className="bg-gray-200 dark:bg-gray-600 rounded p-2 text-gray-800 dark:text-gray-100"
+                        >
+                          <p>
+                            <strong>{rep.userName}:</strong>{" "}
+                            {editingReplyId === rep.id ? (
+                              <>
+                                <input
+                                  type="text"
+                                  className="border px-2 py-1 rounded w-full mt-1"
+                                  value={replyText}
+                                  onChange={(e) => setReplyText(e.target.value)}
+                                />
+                                <div className="flex space-x-2 mt-1">
+                                  <button
+                                    className="bg-green-500 text-white px-2 py-1 rounded"
+                                    onClick={() =>
+                                      handleEditReply(msg.id, rep, replyText)
+                                    }
+                                  >
+                                    Save
+                                  </button>
+                                  <button
+                                    className="bg-gray-400 text-white px-2 py-1 rounded"
+                                    onClick={() => setEditingReplyId(null)}
+                                  >
+                                    Cancel
+                                  </button>
+                                </div>
+                              </>
+                            ) : (
+                              <span>{rep.text}</span>
+                            )}
+                          </p>
+                          {/* <p className="text-xs text-gray-500 mt-1">
+                            {dayjs(rep.timestamp).fromNow()}
+                          </p> */}
+                          <LiveTimestamp timestamp={rep.timestamp} />
+                          {isOwner && editingReplyId !== rep.id && (
+                            <div className="flex space-x-2 mt-1">
+                              <button
+                                onClick={() => {
+                                  setEditingReplyId(rep.id);
+                                  setReplyText(rep.text);
+                                }}
+                                className="text-yellow-600 text-xs"
+                              >
+                                Edit
+                              </button>
+                              <button
+                                onClick={() => handleDeleteReply(msg.id, rep)}
+                                className="text-red-600 text-xs"
+                              >
+                                Delete
+                              </button>
+                            </div>
+                          )}
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
+
+                {replyingTo === msg.id && (
+                  <div className="mt-2 flex items-center space-x-2">
+                    <input
+                      type="text"
+                      placeholder="Write a reply..."
+                      value={replyText}
+                      onChange={(e) => setReplyText(e.target.value)}
+                      className="flex-1 border px-2 py-1 rounded"
+                    />
+                    <button
+                      onClick={() => handleReply(msg.id)}
+                      className="bg-blue-500 text-white px-3 py-1 rounded"
+                    >
+                      Send
+                    </button>
+                  </div>
+                )}
+              </div>
             </div>
-          </div>
-        </div>
-      ))}
-      {/* Story List */}
-      <div className="grid gap-4">
-        {stories.map((story, index) => (
-          <StoryCard key={index} story={story} />
-        ))}
+          );
+        })}
+        <div ref={endOfMessagesRef}></div>
+      </div>
+
+      <div className="flex items-center mt-4 space-x-2">
+        <input
+          type="text"
+          className="flex-1 border rounded px-3 py-2 dark:bg-gray-900 dark:text-white"
+          placeholder="Type your message..."
+          value={msg}
+          onChange={(e) => setMsg(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") handleSendMessage();
+          }}
+        />
+        <button
+          onClick={handleSendMessage}
+          className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded"
+        >
+          Send
+        </button>
       </div>
     </div>
   );
 };
 
 export default Community;
-
-// This code is a React component for a community page where users can share and read stories. It includes features like adding new stories, sending messages, and reacting to messages with emojis. The component uses local state to manage the stories and messages, and it formats timestamps using the dayjs library. The stories data is now imported from a separate file, and the StoryCard component is used to display each story.
