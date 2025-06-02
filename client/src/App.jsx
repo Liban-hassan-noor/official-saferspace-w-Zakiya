@@ -7,6 +7,7 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Support from "./pages/Support";
 import Healthservices from "./pages/Healthservices";
+import Education from "./pages/education";
 
 // Step 1: Generate and store anonymous user ID in localStorage
 function getAnonymousUserId() {
@@ -32,6 +33,8 @@ function App() {
         <Route path="/community" element={<Community />} />
         <Route path="/support" element={<Support />} />
         <Route path="/services" element={<Healthservices />} />
+        <Route path="/education" element={<Education />} />
+
       </Routes>
 
       <Footer />

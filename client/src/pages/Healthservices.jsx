@@ -70,7 +70,7 @@ const Healthservices = () => {
     >
       <div className="bg-white bg-opacity-95 shadow-xl rounded-xl max-w-7xl w-full p-8">
         <h1 className="text-4xl font-bold text-green-700 mb-4 text-center">
-          Health Services in Northern Kenya
+          Health Services in  Kenya
         </h1>
 
         <p className="text-center text-gray-700 text-lg mb-6 max-w-3xl mx-auto">

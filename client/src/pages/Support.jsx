@@ -80,7 +80,7 @@ const Support = () => {
 
           <h2 className="text-xl font-semibold mt-6 mb-2">🌱 Get Involved</h2>
           <ul className="list-disc pl-6 space-y-1">
-            <li>Join local women-led initiatives in Northern Kenya</li>
+            <li>Join local women-led initiatives in Kenya</li>
             <li>Attend awareness and empowerment workshops</li>
             <li>Spread awareness on early marriages and FGM</li>
           </ul>

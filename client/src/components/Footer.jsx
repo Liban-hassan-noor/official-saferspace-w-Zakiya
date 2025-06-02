@@ -9,8 +9,8 @@ const Footer = () => {
         <div>
           <h3 className="text-lg font-bold text-green-700 mb-2">SaferSpace</h3>
           <p className="text-sm">
-            A safe, anonymous platform for girls and women in Northern Kenya to
-            heal, connect, and grow stronger together.
+            A safe, anonymous platform for girls and women in Kenya to heal,
+            connect, and grow stronger together.
           </p>
         </div>
 
@@ -39,8 +39,9 @@ const Footer = () => {
         {/* Contact or Social (optional) */}
         <div>
           <h3 className="text-lg font-bold text-green-700 mb-2">Contact</h3>
-          <p className="text-sm">Email: support@saferspace.co.ke</p>
+          <p className="text-sm">Email: saferspace.kenya@gmail.com</p>
           <p className="text-sm">Phone: +254 700 000 000</p>
+          <p className="text-sm">Linkedlin: SaferSpace Kenya</p>
           <div className="mt-2 space-x-3">
             {/* You can add social icons here */}
             <a href="#" className="text-green-700 hover:underline text-sm">
