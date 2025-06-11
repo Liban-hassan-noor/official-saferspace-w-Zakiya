@@ -1,0 +1,11 @@
+{
+  "navbar": {
+    "brand": "SaferSpace",
+    "stories": "Stories",
+    "services": "Services",
+    "support": "Support",
+    "education": "Education",
+    "english": "English",
+    "kiswahili": "Kiswahili"
+  }
+}

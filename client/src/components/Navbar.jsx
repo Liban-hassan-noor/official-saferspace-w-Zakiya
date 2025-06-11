@@ -2,11 +2,19 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useTranslation } from "react-i18next";
 import Logo from "../assets/logo-SaferSpace.jpg";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
+  const { t, i18n } = useTranslation("navbar");
+
   const toggleMenu = () => setOpen(!open);
+
+  const switchLang = (lang) => {
+    i18n.changeLanguage(lang);
+    localStorage.setItem("lang", lang);
+  };
 
   return (
     <nav className="bg-white/90 backdrop-blur-md shadow-md sticky top-0 z-50">
@@ -26,24 +34,48 @@ const Navbar = () => {
               alt="SaferSpace Logo"
               className="h-12 w-12 object-cover rounded-full"
             />
-            <span>SaferSpace</span>
+            <span>{t("SaferSpace")}</span>
           </Link>
         </motion.div>
 
         {/* Desktop Menu */}
-        <div className="hidden md:flex space-x-6 text-gray-700 font-medium">
+        <div className="hidden md:flex items-center space-x-6 text-gray-700 font-medium">
           <Link to="/community" className="hover:text-green-700 transition">
-            Stories
+            {t("stories")}
           </Link>
           <Link to="/services" className="hover:text-green-700 transition">
-            Services
+            {t("services")}
           </Link>
           <Link to="/education" className="hover:text-green-700 transition">
-            Education
+            {t("education")}
           </Link>
           <Link to="/support" className="hover:text-green-700 transition">
-            Support
+            {t("support")}
           </Link>
+
+          {/* Language Switcher */}
+          <div className="flex items-center space-x-2 border border-green-200 rounded-full px-2 py-1 text-sm">
+            <button
+              onClick={() => switchLang("en")}
+              className={`px-2 py-1 rounded-full ${
+                i18n.language === "en"
+                  ? "bg-green-600 text-white"
+                  : "text-green-700"
+              }`}
+            >
+              {t("english")}
+            </button>
+            <button
+              onClick={() => switchLang("sw")}
+              className={`px-2 py-1 rounded-full ${
+                i18n.language === "sw"
+                  ? "bg-green-600 text-white"
+                  : "text-green-700"
+              }`}
+            >
+              {t("kiswahili")}
+            </button>
+          </div>
         </div>
 
         {/* Mobile Menu Button */}
@@ -55,7 +87,7 @@ const Navbar = () => {
         </button>
       </div>
 
-      {/* Mobile Dropdown Menu with Animation */}
+      {/* Mobile Dropdown Menu */}
       <AnimatePresence>
         {open && (
           <motion.div
@@ -71,29 +103,59 @@ const Navbar = () => {
                 onClick={() => setOpen(false)}
                 className="block text-gray-700 font-medium px-4 py-2 rounded hover:bg-green-100 hover:text-green-700 transition"
               >
-                Stories
+                {t("navbar.stories")}
               </Link>
               <Link
                 to="/services"
                 onClick={() => setOpen(false)}
                 className="block text-gray-700 font-medium px-4 py-2 rounded hover:bg-green-100 hover:text-green-700 transition"
               >
-                Services
+                {t("navbar.services")}
               </Link>
               <Link
                 to="/support"
                 onClick={() => setOpen(false)}
                 className="block text-gray-700 font-medium px-4 py-2 rounded hover:bg-green-100 hover:text-green-700 transition"
               >
-                Support
+                {t("navbar.support")}
               </Link>
               <Link
                 to="/education"
                 onClick={() => setOpen(false)}
                 className="block text-gray-700 font-medium px-4 py-2 rounded hover:bg-green-100 hover:text-green-700 transition"
               >
-                Education
+                {t("navbar.education")}
               </Link>
+
+              {/* Mobile Language Switcher */}
+              <div className="flex justify-center gap-4 pt-2">
+                <button
+                  onClick={() => {
+                    switchLang("en");
+                    setOpen(false);
+                  }}
+                  className={`px-4 py-1 rounded-full text-sm ${
+                    i18n.language === "en"
+                      ? "bg-green-600 text-white"
+                      : "text-green-700 border border-green-200"
+                  }`}
+                >
+                  {t("navbar.english")}
+                </button>
+                <button
+                  onClick={() => {
+                    switchLang("sw");
+                    setOpen(false);
+                  }}
+                  className={`px-4 py-1 rounded-full text-sm ${
+                    i18n.language === "sw"
+                      ? "bg-green-600 text-white"
+                      : "text-green-700 border border-green-200"
+                  }`}
+                >
+                  {t("navbar.kiswahili")}
+                </button>
+              </div>
             </div>
           </motion.div>
         )}
@@ -103,4 +165,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-// This code defines a responsive Navbar component using React, React Router, and Framer Motion for animations.

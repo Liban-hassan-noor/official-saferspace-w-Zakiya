@@ -1,0 +1,23 @@
+{
+  "home": {
+    "heroTitle": "Karibu SaferSpace",
+    "heroSubtitle": "Eneo salama na la faragha kwa wasichana na wanawake nchini Kenya kushiriki, kupona, na kupata msaada.",
+    "cards": [
+      {
+        "title": "Soma na Shiriki Hadithi",
+        "text": "Hadithi halisi, zisizo na majina kutoka kwa waathiriwa. Jifunze, jihisi kuonekana, na upate matumaini.",
+        "button": "Nenda kwa Hadithi"
+      },
+      {
+        "title": "Huduma za Afya Bila Malipo",
+        "text": "Tafuta huduma salama za afya karibu zinazosaidia wasichana bila malipo.",
+        "button": "Tafuta Huduma"
+      },
+      {
+        "title": "Msaada wa Kitaalamu",
+        "text": "Pata msaada kutoka kwa washauri, wauguzi, na walezi unapouhitaji zaidi.",
+        "button": "Pata Msaada"
+      }
+    ]
+  }
+}

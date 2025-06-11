@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../firebase";
 
+
 const Healthservices = () => {
   const [hospitals, setHospitals] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");

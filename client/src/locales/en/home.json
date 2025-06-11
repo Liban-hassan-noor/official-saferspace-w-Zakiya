@@ -1,0 +1,23 @@
+{
+  "home": {
+    "heroTitle": "Welcome to SaferSpace",
+    "heroSubtitle": "A safe, anonymous space for girls and women in Kenya to share, heal, and find support.",
+    "cards": [
+      {
+        "title": "Read & Share Stories",
+        "text": "Real, anonymous stories from survivors. Learn, feel seen, and gain hope.",
+        "button": "Go to Stories"
+      },
+      {
+        "title": "Free Health Services",
+        "text": "Find safe, nearby healthcare options that support girls without cost.",
+        "button": "Find Services"
+      },
+      {
+        "title": "Professional Support",
+        "text": "Get help from counselors, nurses, and mentors when you need it most.",
+        "button": "Get Support"
+      }
+    ]
+  }
+}
