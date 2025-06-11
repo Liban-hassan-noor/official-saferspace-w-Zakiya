@@ -41,16 +41,16 @@ const Navbar = () => {
         {/* Desktop Menu */}
         <div className="hidden md:flex items-center space-x-6 text-gray-700 font-medium">
           <Link to="/community" className="hover:text-green-700 transition">
-            {t("stories")}
+            {t("navbar.stories")}
           </Link>
           <Link to="/services" className="hover:text-green-700 transition">
-            {t("services")}
+            {t("navbar.services")}
           </Link>
           <Link to="/education" className="hover:text-green-700 transition">
-            {t("education")}
+            {t("navbar.education")}
           </Link>
           <Link to="/support" className="hover:text-green-700 transition">
-            {t("support")}
+            {t("navbar.support")}
           </Link>
 
           {/* Language Switcher */}
