@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../firebase";
-
+import { useTranslation } from "react-i18next";
 
 const Healthservices = () => {
   const [hospitals, setHospitals] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [loading, setLoading] = useState(true);
+  const { t } = useTranslation("health"); // use the 'health' namespace
 
-  // Group hospitals by county
   const groupByCounty = (data) => {
     const grouped = {};
     data.forEach((hospital) => {
@@ -30,15 +30,11 @@ const Healthservices = () => {
           const data = doc.data();
 
           if (Array.isArray(data.hospitals)) {
-            data.hospitals.forEach((hospital, index) => {
-              const hospitalWithCounty = {
+            data.hospitals.forEach((hospital) => {
+              allHospitals.push({
                 ...hospital,
                 county: hospital.county || countyDoc,
-              };
-              allHospitals.push(hospitalWithCounty);
-
-              // Debug log
-              //console.log(`✅ ${countyDoc} →`, hospitalWithCounty.name);
+              });
             });
           } else {
             console.warn(`⚠️ No hospitals array in doc ${countyDoc}`);
@@ -71,20 +67,18 @@ const Healthservices = () => {
     >
       <div className="bg-white bg-opacity-95 shadow-xl rounded-xl max-w-7xl w-full p-8">
         <h1 className="text-4xl font-bold text-green-700 mb-4 text-center">
-          Health Services in  Kenya
+          {t("title")}
         </h1>
 
         <p className="text-center text-gray-700 text-lg mb-6 max-w-3xl mx-auto">
-          These health facilities offer essential support for survivors of FGM,
-          early marriages, and gender-based violence. Search by county to find
-          nearby services.
+          {t("description")}
         </p>
 
         {/* Search Input */}
         <div className="mb-10 flex justify-center">
           <input
             type="text"
-            placeholder="Search by county (e.g. Garissa)"
+            placeholder={t("searchPlaceholder")}
             className="w-full max-w-md p-3 border border-pink-300 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-pink-400"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
@@ -94,7 +88,7 @@ const Healthservices = () => {
         {/* Loader */}
         {loading ? (
           <div className="text-center text-purple-600 text-xl">
-            Loading hospitals...
+            {t("loading")}
           </div>
         ) : filteredHospitals.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -104,7 +98,7 @@ const Healthservices = () => {
                 className="bg-purple-50 border border-purple-200 rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow duration-300"
               >
                 <h2 className="text-xl font-bold text-purple-700 text-center mb-4 border-b border-purple-300 pb-2">
-                  {county} County
+                  {t("countyLabel", { county })}
                 </h2>
                 <ul className="space-y-4">
                   {hospitalsInCounty.map((hospital, idx) => (
@@ -124,14 +118,12 @@ const Healthservices = () => {
           </div>
         ) : (
           <p className="text-center text-red-800 mt-10 text-lg">
-            No hospitals found for that county.
+            {t("notFound")}
           </p>
         )}
 
         <div className="mt-10 text-center">
-          <p className="text-sm italic text-gray-600">
-            Empowering communities with compassionate, accessible healthcare.
-          </p>
+          <p className="text-sm italic text-gray-600">{t("footerNote")}</p>
         </div>
       </div>
     </div>
@@ -139,5 +131,3 @@ const Healthservices = () => {
 };
 
 export default Healthservices;
-// This component fetches and displays health services data from Firestore.
-// It allows users to search by county and view hospitals with their details.

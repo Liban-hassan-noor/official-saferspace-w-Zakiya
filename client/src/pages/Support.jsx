@@ -1,5 +1,6 @@
 import React from "react";
 import "../App.css";
+import { useTranslation } from "react-i18next";
 
 const quotes = [
   "You are not alone; your voice matters.",
@@ -34,10 +35,11 @@ const quotes = [
   "Together, we protect, support, and uplift women.",
 ];
 
-// Get a different quote on every page refresh
 const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
 
 const Support = () => {
+  const { t } = useTranslation("support");
+
   return (
     <div
       className="min-h-screen bg-cover bg-center flex flex-col items-center justify-center px-6 py-12"
@@ -47,12 +49,10 @@ const Support = () => {
       }}
     >
       <div className="bg-white bg-opacity-90 rounded-xl shadow-xl p-8 max-w-3xl w-full text-center">
-        <h1 className="text-3xl font-bold text-green-700 mb-4">Support Page</h1>
-        <p className="text-gray-700 text-lg mb-6">
-          Welcome to the support center of SaferSpace. Here you’ll find
-          resources, helplines, and guidance tailored to help girls and women
-          affected by early marriages, FGM, and gender-based violence.
-        </p>
+        <h1 className="text-3xl font-bold text-green-700 mb-4">
+          {t("title")}
+        </h1>
+        <p className="text-gray-700 text-lg mb-6">{t("intro")}</p>
 
         <div className="bg-green-100 border-l-4 border-green-500 text-green-800 p-4 mb-6 rounded-md">
           <p className="italic font-medium">“{randomQuote}”</p>
@@ -60,29 +60,20 @@ const Support = () => {
 
         <div className="text-left text-gray-800">
           <h2 className="text-xl font-semibold mb-2">
-            📞 Emergency & Support Contacts
+            📞 {t("contactsTitle")}
           </h2>
           <ul className="list-disc pl-6 space-y-1">
-            <li>
-              Gender-Based Violence Hotline: <strong>1195</strong>
-            </li>
-            <li>
-              Child Helpline Kenya: <strong>116</strong>
-            </li>
-            <li>
-              AMREF Health Africa: <strong>+254 20 6994000</strong>
-            </li>
-            <li>
-              Wajir, Mandera & Garissa Mental Health Clinics (see Health
-              Services)
-            </li>
+            <li>{t("contacts.helpline")}</li>
+            <li>{t("contacts.childline")}</li>
+            <li>{t("contacts.amref")}</li>
+            <li>{t("contacts.regional")}</li>
           </ul>
 
-          <h2 className="text-xl font-semibold mt-6 mb-2">🌱 Get Involved</h2>
+          <h2 className="text-xl font-semibold mt-6 mb-2">🌱 {t("involvedTitle")}</h2>
           <ul className="list-disc pl-6 space-y-1">
-            <li>Join local women-led initiatives in Kenya</li>
-            <li>Attend awareness and empowerment workshops</li>
-            <li>Spread awareness on early marriages and FGM</li>
+            <li>{t("involved.local")}</li>
+            <li>{t("involved.workshops")}</li>
+            <li>{t("involved.awareness")}</li>
           </ul>
         </div>
       </div>

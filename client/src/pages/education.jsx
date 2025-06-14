@@ -1,60 +1,75 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
+import { Heart, ShieldCheck, AlertCircle } from "lucide-react";
 
 const Education = () => {
+  const { t } = useTranslation("education");
+
+  const rapeSteps = t("rape_steps", { returnObjects: true });
+  const marriageSteps = t("marriage_steps", { returnObjects: true });
+  const hivSteps = t("hiv_steps", { returnObjects: true });
+
   return (
-    <div className="bg-gradient-to-b from-purple-100 via-pink-50 to-green-50 min-h-screen p-6">
-      <div className="max-w-4xl mx-auto bg-white rounded-2xl shadow-xl p-8">
-        <h1 className="text-4xl font-extrabold text-purple-700 mb-6">
-          What To Do Next
-        </h1>
-        <p className="text-gray-700 mb-6 leading-relaxed">
-          If you or someone you know has experienced rape, early marriage, or is dealing with HIV/AIDS, know that you're not alone. This page offers practical steps and support resources to help you move forward with strength and care.
-        </p>
+    <div className="min-h-screen bg-gradient-to-br from-purple-100 via-pink-50 to-green-50 px-4 py-10">
+      <div className="max-w-4xl mx-auto bg-white rounded-3xl shadow-2xl p-8 md:p-12 space-y-10">
+        <div className="text-center">
+          <h1 className="text-4xl md:text-5xl font-extrabold text-purple-700 mb-4">
+            {t("title")}
+          </h1>
+          <p className="text-gray-700 text-lg leading-relaxed">
+            {t("intro")}
+          </p>
+        </div>
 
-        {/* Section: After Rape */}
-        <div className="mb-8">
-          <h2 className="text-2xl font-bold text-pink-600 mb-3">
-            If You Have Been Raped
-          </h2>
+        {/* Rape Section */}
+        <div className="bg-pink-50 rounded-2xl border border-pink-200 p-6">
+          <div className="flex items-center mb-3">
+            <AlertCircle className="text-pink-600 w-6 h-6 mr-2" />
+            <h2 className="text-2xl font-bold text-pink-600">{t("rape_title")}</h2>
+          </div>
           <ul className="list-disc pl-6 text-gray-800 space-y-2">
-            <li>Go to a safe place and be with someone you trust.</li>
-            <li>Seek medical help immediately (within 72 hours for PEP & emergency contraception).</li>
-            <li>Preserve evidence (avoid bathing or changing clothes until you get medical attention).</li>
-            <li>Report to the police or a local support center if you're ready.</li>
-            <li>Talk to a mental health counselor for emotional support.</li>
+            {Array.isArray(rapeSteps) ? (
+              rapeSteps.map((step, index) => <li key={index}>{step}</li>)
+            ) : (
+              <li className="text-red-500">⚠️ Steps failed to load.</li>
+            )}
           </ul>
         </div>
 
-        {/* Section: Early Marriage */}
-        <div className="mb-8">
-          <h2 className="text-2xl font-bold text-green-600 mb-3">
-            If You Are in an Early Marriage
-          </h2>
+        {/* Early Marriage Section */}
+        <div className="bg-green-50 rounded-2xl border border-green-200 p-6">
+          <div className="flex items-center mb-3">
+            <ShieldCheck className="text-green-600 w-6 h-6 mr-2" />
+            <h2 className="text-2xl font-bold text-green-600">{t("marriage_title")}</h2>
+          </div>
           <ul className="list-disc pl-6 text-gray-800 space-y-2">
-            <li>Understand your rights — child marriage is illegal in Kenya and many other countries.</li>
-            <li>Seek help from women's rights groups, community leaders, or trusted adults.</li>
-            <li>Contact child protection services or helplines in your area.</li>
-            <li>Consider safe shelter options offered by NGOs and rescue centers.</li>
+            {Array.isArray(marriageSteps) ? (
+              marriageSteps.map((step, index) => <li key={index}>{step}</li>)
+            ) : (
+              <li className="text-red-500">⚠️ Steps failed to load.</li>
+            )}
           </ul>
         </div>
 
-        {/* Section: HIV/AIDS */}
-        <div>
-          <h2 className="text-2xl font-bold text-purple-600 mb-3">
-            Living with or Concerned About HIV/AIDS
-          </h2>
+        {/* HIV/AIDS Section */}
+        <div className="bg-purple-50 rounded-2xl border border-purple-200 p-6">
+          <div className="flex items-center mb-3">
+            <Heart className="text-purple-600 w-6 h-6 mr-2" />
+            <h2 className="text-2xl font-bold text-purple-600">{t("hiv_title")}</h2>
+          </div>
           <ul className="list-disc pl-6 text-gray-800 space-y-2">
-            <li>Get tested at a certified clinic to know your status.</li>
-            <li>If positive, begin antiretroviral treatment (ART) immediately — it's free in public hospitals.</li>
-            <li>Join a support group to talk to others with similar experiences.</li>
-            <li>Eat well, stay informed, and remember that HIV is manageable with proper care.</li>
+            {Array.isArray(hivSteps) ? (
+              hivSteps.map((step, index) => <li key={index}>{step}</li>)
+            ) : (
+              <li className="text-red-500">⚠️ Steps failed to load.</li>
+            )}
           </ul>
         </div>
 
         {/* Closing Message */}
-        <div className="mt-10 text-center">
-          <p className="text-lg font-semibold text-gray-600">
-            💚 You are not alone. SaferSpace is here to support, guide, and walk with you every step of the way.
+        <div className="text-center mt-10">
+          <p className="text-lg font-semibold text-gray-700">
+            {t("closing")}
           </p>
         </div>
       </div>

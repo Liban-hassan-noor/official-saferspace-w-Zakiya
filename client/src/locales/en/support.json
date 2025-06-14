@@ -1,0 +1,17 @@
+{
+  "title": "Support Page",
+  "intro": "Welcome to the support center of SaferSpace. Here you’ll find resources, helplines, and guidance tailored to help girls and women affected by early marriages, FGM, and gender-based violence.",
+  "contactsTitle": "Emergency & Support Contacts",
+  "contacts": {
+    "helpline": "Gender-Based Violence Hotline: 1195",
+    "childline": "Child Helpline Kenya: 116",
+    "amref": "AMREF Health Africa: +254 20 6994000",
+    "regional": "Wajir, Mandera & Garissa Mental Health Clinics (see Health Services)"
+  },
+  "involvedTitle": "Get Involved",
+  "involved": {
+    "local": "Join local women-led initiatives in Kenya",
+    "workshops": "Attend awareness and empowerment workshops",
+    "awareness": "Spread awareness on early marriages and FGM"
+  }
+}

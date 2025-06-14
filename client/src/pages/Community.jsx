@@ -17,6 +17,7 @@ import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 dayjs.extend(relativeTime);
 import LiveTimestamp from "../components/LiveTimestamp";
+import { useTranslation } from "react-i18next";
 
 const emojiMap = {
   heart: "❤️",
@@ -25,6 +26,7 @@ const emojiMap = {
 };
 
 const Community = () => {
+  const { t } = useTranslation("community");
   const [msg, setMsg] = useState("");
   const [messages, setMessages] = useState([]);
   const [currentUser, setCurrentUser] = useState(null);
@@ -84,7 +86,7 @@ const Community = () => {
 
     const userId = currentUser.uid;
     const prevEmoji = msg.reactedBy?.[userId];
-    if (prevEmoji === emoji) return; // Already reacted with same emoji
+    if (prevEmoji === emoji) return;
 
     const updatedReactions = { ...msg.reactions };
     const updatedReactedBy = { ...msg.reactedBy };
@@ -163,21 +165,16 @@ const Community = () => {
     <div className="max-w-2xl mx-auto p-4 text-gray-900 dark:text-white">
       <div className="bg-gradient-to-br from-pink-50 to-green-50 dark:from-green-950 dark:to-pink-900 p-6 rounded-2xl shadow-lg border border-pink-200 dark:border-green-400 mb-6">
         <h2 className="text-2xl font-extrabold text-green-900 dark:text-pink-200 mb-3 flex items-center gap-2">
-          Your Voice Matters
+          {t("community.title")}
         </h2>
         <p className="text-green-800 dark:text-pink-100 text-base leading-relaxed">
-          This space was created with you in mind — a calm, welcoming place
-          where you can speak freely, share your truth, and feel supported by
-          others who care.
+          {t("community.intro1")}
         </p>
         <p className="mt-3 text-green-800 dark:text-pink-100 text-base leading-relaxed">
-          Whether it's something you're proud of, something you've survived, or
-          something you're still going through — your story belongs here. You
-          never know who it might help, heal, or give hope to.
+          {t("community.intro2")}
         </p>
         <p className="mt-3 text-green-800 dark:text-pink-100 text-base leading-relaxed italic">
-          Every voice builds our community. Every share is a step toward
-          healing.
+          {t("community.intro3")}
         </p>
       </div>
 
@@ -241,7 +238,7 @@ const Community = () => {
                     }
                     className="text-blue-600 dark:text-blue-300"
                   >
-                    Reply
+                    {t("community.reply")}
                   </button>
                 </div>
 
@@ -271,7 +268,7 @@ const Community = () => {
                                       handleEditReply(msg.id, rep, replyText)
                                     }
                                   >
-                                    Save
+                                    {t("community.send")}
                                   </button>
                                   <button
                                     className="bg-gray-400 text-white px-2 py-1 rounded"
@@ -285,9 +282,6 @@ const Community = () => {
                               <span>{rep.text}</span>
                             )}
                           </p>
-                          {/* <p className="text-xs text-gray-500 mt-1">
-                            {dayjs(rep.timestamp).fromNow()}
-                          </p> */}
                           <LiveTimestamp timestamp={rep.timestamp} />
                           {isOwner && editingReplyId !== rep.id && (
                             <div className="flex space-x-2 mt-1">
@@ -298,13 +292,13 @@ const Community = () => {
                                 }}
                                 className="text-yellow-600 text-xs"
                               >
-                                Edit
+                                {t("community.edit")}
                               </button>
                               <button
                                 onClick={() => handleDeleteReply(msg.id, rep)}
                                 className="text-red-600 text-xs"
                               >
-                                Delete
+                                {t("community.delete")}
                               </button>
                             </div>
                           )}
@@ -318,7 +312,7 @@ const Community = () => {
                   <div className="mt-2 flex items-center space-x-2">
                     <input
                       type="text"
-                      placeholder="Write a reply..."
+                      placeholder={t("community.replyPlaceholder")}
                       value={replyText}
                       onChange={(e) => setReplyText(e.target.value)}
                       className="flex-1 border px-2 py-1 rounded"
@@ -327,7 +321,7 @@ const Community = () => {
                       onClick={() => handleReply(msg.id)}
                       className="bg-blue-500 text-white px-3 py-1 rounded"
                     >
-                      Send
+                      {t("community.send")}
                     </button>
                   </div>
                 )}
@@ -342,7 +336,7 @@ const Community = () => {
         <input
           type="text"
           className="flex-1 border rounded px-3 py-2 dark:bg-gray-900 dark:text-white"
-          placeholder="Type your message..."
+          placeholder={t("community.messagePlaceholder")}
           value={msg}
           onChange={(e) => setMsg(e.target.value)}
           onKeyDown={(e) => {
@@ -353,7 +347,7 @@ const Community = () => {
           onClick={handleSendMessage}
           className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded"
         >
-          Send
+          {t("community.send")}
         </button>
       </div>
     </div>

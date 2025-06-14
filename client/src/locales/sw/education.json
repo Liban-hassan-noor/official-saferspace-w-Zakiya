@@ -1,0 +1,33 @@
+{
+  
+    "title": "Cha Kufanya Baadaye",
+    "intro": "Ikiwa wewe au mtu unayemjua amepitia ubakaji, ndoa ya mapema, au anaishi na VVU/UKIMWI, ujue hauko peke yako. Ukurasa huu unatoa hatua za vitendo na rasilimali za msaada.",
+    
+    "rape_title": "Ikiwa Umebakwa",
+    "rape_steps": [
+      "Nenda mahali salama na uwe na mtu unayemwamini.",
+      "Tafuta msaada wa matibabu mara moja (ndani ya masaa 72 kwa PEP na uzazi wa dharura).",
+      "Hifadhi ushahidi (epuka kuoga au kubadilisha nguo hadi upate huduma ya afya).",
+      "Ripoti kwa polisi au kituo cha msaada ikiwa uko tayari.",
+      "Zungumza na mshauri wa afya ya akili kwa msaada wa kihisia."
+    ],
+    
+    "marriage_title": "Ikiwa Uko Katika Ndoa ya Mapema",
+    "marriage_steps": [
+      "Elewa haki zako — ndoa ya watoto ni haramu nchini Kenya.",
+      "Tafuta msaada kutoka kwa vikundi vya haki za wanawake, viongozi wa jamii, au watu wazima wa kuaminika.",
+      "Wasiliana na huduma za ulinzi wa watoto au simu za msaada.",
+      "Fikiria kuhusu makazi salama yanayotolewa na mashirika ya msaada."
+    ],
+    
+    "hiv_title": "Kuishi na au Kuhofia VVU/UKIMWI",
+    "hiv_steps": [
+      "Fanya kipimo katika kliniki iliyothibitishwa ili ujue hali yako.",
+      "Ikiwa una VVU, anza tiba ya ART mara moja — ni bure katika hospitali za umma.",
+      "Jiunge na kikundi cha msaada kuzungumza na wengine wenye hali kama yako.",
+      "Kula vizuri, kuwa na maarifa, na kumbuka kwamba VVU unaweza kudhibitiwa vizuri."
+    ],
+    
+    "closing": "💚 Huko peke yako. SaferSpace iko hapa kukusaidia kila hatua ya safari yako."
+  
+}

@@ -1,0 +1,27 @@
+{
+  "title": "What To Do Next",
+  "intro": "If you or someone you know has experienced rape, early marriage, or is dealing with HIV/AIDS, know that you're not alone. This page offers practical steps and support resources to help you move forward with strength and care.",
+  "rape_title": "If You Have Been Raped",
+  "rape_steps": [
+    "Go to a safe place and be with someone you trust.",
+    "Seek medical help immediately (within 72 hours for PEP & emergency contraception).",
+    "Preserve evidence (avoid bathing or changing clothes until you get medical attention).",
+    "Report to the police or a local support center if you're ready.",
+    "Talk to a mental health counselor for emotional support."
+  ],
+  "marriage_title": "If You Are in an Early Marriage",
+  "marriage_steps": [
+    "Understand your rights — child marriage is illegal in Kenya and many other countries.",
+    "Seek help from women's rights groups, community leaders, or trusted adults.",
+    "Contact child protection services or helplines in your area.",
+    "Consider safe shelter options offered by NGOs and rescue centers."
+  ],
+  "hiv_title": "Living with or Concerned About HIV/AIDS",
+  "hiv_steps": [
+    "Get tested at a certified clinic to know your status.",
+    "If positive, begin antiretroviral treatment (ART) immediately — it's free in public hospitals.",
+    "Join a support group to talk to others with similar experiences.",
+    "Eat well, stay informed, and remember that HIV is manageable with proper care."
+  ],
+  "closing": "💚 You are not alone. SaferSpace is here to support, guide, and walk with you every step of the way."
+}

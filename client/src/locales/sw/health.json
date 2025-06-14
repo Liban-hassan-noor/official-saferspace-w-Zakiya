@@ -1,0 +1,9 @@
+{
+  "title": "Huduma za Afya nchini Kenya",
+  "description": "Vituo hivi vya afya vinatoa msaada muhimu kwa waathirika wa ukeketaji, ndoa za mapema, na ukatili wa kijinsia. Tafuta kwa kaunti ili kupata huduma zilizo karibu nawe.",
+  "searchPlaceholder": "Tafuta kwa kaunti (mfano. Garissa)",
+  "loading": "Inapakia hospitali...",
+  "notFound": "Hakuna hospitali zilizopatikana kwa kaunti hiyo.",
+  "footerNote": "Kuwawezesha watu kwa huduma ya afya yenye huruma na inayopatikana.",
+  "countyLabel": "Kaunti ya {{county}}"
+}

@@ -1,0 +1,17 @@
+{
+  "title": "Ukurasa wa Msaada",
+  "intro": "Karibu kwenye kituo cha msaada cha SaferSpace. Hapa utapata rasilimali, nambari za msaada, na mwongozo ulioundwa kusaidia wasichana na wanawake walioathiriwa na ndoa za mapema, ukeketaji, na ukatili wa kijinsia.",
+  "contactsTitle": "Nambari za Dharura na Msaada",
+  "contacts": {
+    "helpline": "Nambari ya Msaada wa Dhuluma za Kijinsia: 1195",
+    "childline": "Huduma ya Watoto Kenya: 116",
+    "amref": "AMREF Health Africa: +254 20 6994000",
+    "regional": "Kliniki za Afya ya Akili Wajir, Mandera & Garissa (tazama Huduma za Afya)"
+  },
+  "involvedTitle": "Shiriki",
+  "involved": {
+    "local": "Jiunge na juhudi za wanawake katika jamii",
+    "workshops": "Hudhuria warsha za uhamasishaji na uwezeshaji",
+    "awareness": "Sambaza uhamasishaji kuhusu ndoa za mapema na ukeketaji"
+  }
+}

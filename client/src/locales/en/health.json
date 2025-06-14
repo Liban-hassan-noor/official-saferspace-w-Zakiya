@@ -1,0 +1,9 @@
+{
+  "title": "Health Services in Kenya",
+  "description": "These health facilities offer essential support for survivors of FGM, early marriages, and gender-based violence. Search by county to find nearby services.",
+  "searchPlaceholder": "Search by county (e.g. Garissa)",
+  "loading": "Loading hospitals...",
+  "notFound": "No hospitals found for that county.",
+  "footerNote": "Empowering communities with compassionate, accessible healthcare.",
+  "countyLabel": "{{county}} County"
+}
