@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import healthcare from "../assets/healthcare.jpg";
 import stories from "../assets/stories.jpg";
 import support from "../assets/support.jpg";
+import opportunity from "../assets/opportunity.png";
 
 const cardVariants = {
   hidden: { opacity: 0, y: 30 },
@@ -22,7 +23,38 @@ const cardVariants = {
 const Home = () => {
   const { t } = useTranslation();
 
-  const cards = t("home.cards", { returnObjects: true });
+  const cards = [
+    {
+      title: t("home.cards.0.title"),
+      text: t("home.cards.0.text"),
+      button: t("home.cards.0.button"),
+      image: stories,
+      link: "/community",
+    },
+     {
+      title: t("home.cards.1.title"),
+      text: t("home.cards.1.text"),
+      button: t("home.cards.1.button"),
+      image: opportunity,
+      link: "/opportunities",
+    }
+    ,
+    {
+      title: t("home.cards.2.title"),
+      text: t("home.cards.2.text"),
+      button: t("home.cards.2.button"),
+      image: healthcare,
+      link: "/services",
+    },
+    {
+      title: t("home.cards.3.title"),
+      text: t("home.cards.3.text"),
+      button: t("home.cards.3.button"),
+      image: support,
+      link: "/support",
+    },
+    
+  ];
 
   return (
     <div className="min-h-screen bg-pink-50 px-4 py-10">
@@ -42,7 +74,7 @@ const Home = () => {
       </motion.section>
 
       {/* Feature Cards */}
-      <section className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+      <section className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
         {cards.map((card, index) => (
           <motion.div
             key={index}
@@ -54,7 +86,7 @@ const Home = () => {
           >
             <div className="mb-4">
               <img
-                src={[stories, healthcare, support][index]}
+                src={card.image}
                 alt={card.title}
                 className="w-full h-40 object-cover rounded-xl mb-4"
               />
@@ -64,7 +96,7 @@ const Home = () => {
               <p className="text-sm text-gray-600 mt-2">{card.text}</p>
             </div>
             <Link
-              to={["/community", "/services", "/support"][index]}
+              to={card.link}
               className="mt-auto self-start bg-green-600 text-white px-4 py-2 text-sm rounded-full hover:bg-green-700 transition-colors duration-300"
             >
               {card.button}
@@ -77,4 +109,3 @@ const Home = () => {
 };
 
 export default Home;
-// This code defines a Home component for a React application that uses Framer Motion for animations and react-i18next for internationalization.

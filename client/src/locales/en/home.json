@@ -9,6 +9,11 @@
         "button": "Go to Stories"
       },
       {
+        "title": "Opportunities & Growth",
+        "text": "Explore scholarships, tech bootcamps, mentorship, and school re-entry programs designed for girls and survivors.",
+        "button": "See Opportunities"
+      },
+      {
         "title": "Free Health Services",
         "text": "Find safe, nearby healthcare options that support girls without cost.",
         "button": "Find Services"

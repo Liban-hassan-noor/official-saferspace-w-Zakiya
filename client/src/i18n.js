@@ -15,6 +15,8 @@ import educationSw from "./locales/sw/education.json";
 import educationEn from "./locales/en/education.json";
 import footerEn from "./locales/en/footer.json";
 import footerSw from "./locales/sw/footer.json";
+import opportunitiesEn from "./locales/en/opportunities.json";
+import opportunitiesSw from "./locales/sw/opportunities.json";
 
 i18n.use(initReactI18next).init({
   resources: {
@@ -26,6 +28,7 @@ i18n.use(initReactI18next).init({
       support: supportEn,
       education: educationEn,
       footer: footerEn,
+      opportunities: opportunitiesEn,
     },
     sw: {
       home: homeSw,
@@ -35,11 +38,12 @@ i18n.use(initReactI18next).init({
       support: supportSw,
       education: educationSw,
       footer: footerSw,
+      opportunities: opportunitiesSw,
     },
   },
   lng: localStorage.getItem("lang") || "en",
   fallbackLng: "en",
-  ns: ["home", "navbar", "community", "health", "support", "education", "footer"], // declare namespaces
+  ns: ["home", "navbar", "community", "health", "support", "education", "footer", "opportunities"], // declare namespaces
   defaultNS: "home", // use home as default unless specified
   interpolation: { escapeValue: false },
   returnObjects: true,

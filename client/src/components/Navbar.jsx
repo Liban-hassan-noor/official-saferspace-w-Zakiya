@@ -43,6 +43,9 @@ const Navbar = () => {
           <Link to="/community" className="hover:text-green-700 transition">
             {t("navbar.stories")}
           </Link>
+          <Link to="/opportunities" className="hover:text-green-700 transition">
+            {t("navbar.opportunities")}
+            </Link>
           <Link to="/services" className="hover:text-green-700 transition">
             {t("navbar.services")}
           </Link>
@@ -104,6 +107,13 @@ const Navbar = () => {
                 className="block text-gray-700 font-medium px-4 py-2 rounded hover:bg-green-100 hover:text-green-700 transition"
               >
                 {t("navbar.stories")}
+              </Link>
+              <Link
+                to="/opportunities"
+                onClick={() => setOpen(false)}
+                className="block text-gray-700 font-medium px-4 py-2 rounded hover:bg-green-100 hover:text-green-700 transition"
+              >
+                {t("navbar.opportunities")}
               </Link>
               <Link
                 to="/services"
